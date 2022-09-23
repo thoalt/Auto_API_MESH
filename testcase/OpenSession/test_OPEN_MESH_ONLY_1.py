@@ -32,7 +32,7 @@ class Test_SpeedTest():
                     SSHSes.start_mobile_agent()
                     SSHShell.close()
                 else:
-                    print(f"******************************** CANNOT CONNECT TO {cfg.IP_ADDR_CAP} *************")
+                    raise Exception(f"CANNOT PING TO {cfg.IP_ADDR_CAP}")
 
                 # Open session
                 self.ClientSes = openssesionClient()

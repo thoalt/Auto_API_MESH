@@ -70,8 +70,12 @@ class SSH_Lib:
         return uciVal
 
     def start_mobile_agent(self):
-        self.SSHShell.execute_command('/etc/init.d/vnptt_mad stop')
-        time.sleep(1)
-        self.SSHShell.execute_command('/etc/init.d/vnptt_mad start')
-        time.sleep(1)
+        output = str(self.SSHShell.execute_command('ps|grep vnptt_mad').stdout)
+        if "/usr/sbin/vnptt_mad" in output:
+            self.SSHShell.execute_command('/etc/init.d/vnptt_mad stop')
+            time.sleep(1)
+            self.SSHShell.execute_command('/etc/init.d/vnptt_mad start')
+            time.sleep(1)
+        else:
+            raise Exception("vnptt_mad is not running")
         return self.SSHShell

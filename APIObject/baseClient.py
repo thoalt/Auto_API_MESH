@@ -1,8 +1,10 @@
 import copy
 
 from assertpy import soft_assertions, assert_that
+from cerberus import Validator
 
 from Utilities import Utility as utl
+from Config import Schema_Template as scTmp
 
 
 class BaseClient:
@@ -52,3 +54,27 @@ class BaseClient:
     def get_result(self, resBody):
         resultRes = utl.search_nodes_using_json_path(resBody, jsonPath="$..results")
         return resultRes
+
+    def valid_schema_common(self, resBody, schema=scTmp.schema_common, require_all=True):
+        valid = Validator(schema=schema, require_all=require_all)
+        is_valid = valid.validate(resBody)
+        assert_that(is_valid, description=valid.errors).is_true()
+
+    def valid_schema_topo_common(self, resBody, schema=scTmp.schema_topo_common, require_all=True):
+        valid = Validator(schema=schema, require_all=require_all)
+        is_valid = valid.validate(resBody)
+        assert_that(is_valid, description=valid.errors).is_true()
+
+    def valid_schema_resul(self, resBody, schema, require_all=True):
+        resultRes = utl.search_nodes_using_json_path(resBody, jsonPath="$..results")
+        for item in resultRes:
+            valid = Validator(schema=schema, require_all=require_all)
+            is_valid = valid.validate(item)
+            assert_that(is_valid, description=valid.errors).is_true()
+
+    def valid_schema_client(self, resBody, schema, require_all=True):
+        clientInfo = utl.search_nodes_using_json_path(resBody, jsonPath="$..results[*].clientInfo")
+        for client in clientInfo:
+            valid = Validator(schema=schema, require_all=require_all)
+            is_valid = valid.validate(client)
+            assert_that(is_valid, description=valid.errors).is_true()

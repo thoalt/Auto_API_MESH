@@ -1,9 +1,5 @@
 import time
 import pytest
-from base.SSHLib import SSH_Lib
-from APIObject.openssesion import openssesionClient
-from APIObject.login import LoginClient
-from APIObject.wanViewConfig import WanViewClient
 from APIObject.radio24GView import radio24GViewClient
 
 

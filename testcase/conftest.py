@@ -59,12 +59,11 @@ def start_agent():
         SSHShell = client.create_shell()
         SSHSes = SSH_Lib(SSHShell=SSHShell)
         SSHSes.start_mobile_agent()
-    except:
-        raise Exception("Exception during connecting to " + cfg.IP_ADDR_CAP + "!\n")
+    except Exception as exc:
+        raise Exception("Exception during connecting to " + cfg.IP_ADDR_CAP + "!\n" + str(exc))
 
 @pytest.fixture(autouse=False, scope="class")
-@pytest.mark.usefixtures("start_agent")
-def login(request):
+def login(request, start_agent):
     ClientSes = openssesionClient()
     cookie = ClientSes.Open_Sesion_And_Get_Cookie()
 
