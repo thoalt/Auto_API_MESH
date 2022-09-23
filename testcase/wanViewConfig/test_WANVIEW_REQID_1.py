@@ -6,20 +6,21 @@ from APIObject.wanViewConfig import WanViewClient
 class Test_Wanview():
     @pytest.fixture(autouse=True, scope="function")
     def set_up(self):
-        self.timeOut = 5
-        self.exp = {"code": 8, "msg": "Invalid Action"}
-        self.data = ['wanviewconfig1','wanviewconfi']
+        self.timeOut = 2
+        self.exp = {"code": 0, "msg": "Success", "action": "wanViewConfig"}
+        self.data = [0, 1, 2147483646, 2147483647]
         self.WanviewClt = WanViewClient()
 
-
     @pytest.mark.success
-    def test_WANVIEW_ACT_2(self):
+    def test_WANVIEW_REQID_1(self):
         time.sleep(self.timeOut)
         resBody_Lst = []
         for item in self.data:
-            pload = self.WanviewClt.Create_WanView_Pload(action=item)
+            pload = self.WanviewClt.Create_WanView_Pload(reqID=item)
             resBody = self.WanviewClt.wanViewConfig(self.cookie, pload=pload).body
             resBody_Lst.append(resBody)
         self.WanviewClt.assert_response_list(resBody_Lst,
                                         self.exp['code'],
-                                        self.exp['msg'])
+                                        self.exp['msg'],
+                                        self.exp['action'])
+

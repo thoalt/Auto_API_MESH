@@ -6,14 +6,14 @@ from APIObject.wanViewConfig import WanViewClient
 class Test_Wanview():
     @pytest.fixture(autouse=True, scope="function")
     def set_up(self):
-        self.timeOut = 5
+        self.timeOut = 2
         self.exp = {"code": 8, "msg": "Invalid Action"}
-        self.data = ['wanviewconfig1','wanviewconfi']
+        self.data = ['']
         self.WanviewClt = WanViewClient()
 
 
     @pytest.mark.success
-    def test_WANVIEW_ACT_2(self):
+    def test_WANVIEW_ACT_4(self):
         time.sleep(self.timeOut)
         resBody_Lst = []
         for item in self.data:
