@@ -10,8 +10,9 @@ from APIObject.lanView import LanViewClient
 class Test_LanView():
     @pytest.fixture(autouse=True, scope="function")
     def set_up(self):
-        self.timeOut = 5
-        self.exp = {"code": 0, "msg": "Success", "action": "lanView"}
+        self.timeOut = 2
+        self.exp = {"code": 11, "msg": "Verify Fail"}
+        self.data = [2147483648]
 
         SSHSes = SSH_Lib(SSHShell=self.SSHShell)
         SSHSes.start_mobile_agent()
@@ -22,12 +23,15 @@ class Test_LanView():
         self.cookie = self.ClientSes.Open_Sesion_And_Get_Cookie()
         self.LoginClt.login(self.cookie)
 
-    @pytest.mark.success
-    def test_LANVIEW_ACT_1(self):
+
+    def test_LANVIEW_REQID_5(self):
         time.sleep(self.timeOut)
-        response = self.LanviewClt.lanView(self.cookie)
-        resBody = response.body
-        self.LanviewClt.assert_response(resBody,
+        resbody_Lst = []
+        for item in self.data:
+            pload = self.LanviewClt.Create_LanView_Pload(reqID=item)
+            resBody = self.LanviewClt.lanView(cookies=self.cookie, pload=pload).body
+            resbody_Lst.append(resBody)
+
+        self.LanviewClt.assert_response_list(resbody_Lst,
                                         self.exp['code'],
-                                        self.exp['msg'],
-                                        self.exp['action'])
+                                        self.exp['msg'])
