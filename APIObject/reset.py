@@ -30,10 +30,10 @@ class resetClient(BaseClient):
 
         return response
 
-    def assert_reset(self, resBody, status, msg, action=None):
-        assert_that(resBody['status']).is_equal_to(status)
-        assert_that(resBody['message']).is_equal_to(msg)
-
-        if action is not None:
-            actionRes = utl.search_nodes_using_json_path(resBody, jsonPath="$..action")
-            assert_that(actionRes).is_equal_to(action)
+    # def assert_reset(self, resBody, status, msg, action=None):
+    #     assert_that(resBody['status']).is_equal_to(status)
+    #     assert_that(resBody['message']).is_equal_to(msg)
+    #
+    #     if action is not None:
+    #         actionRes = utl.search_nodes_using_json_path(resBody, jsonPath="$..action")
+    #         assert_that(actionRes).is_equal_to(action)

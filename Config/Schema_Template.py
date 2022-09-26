@@ -26,10 +26,35 @@ schema_topo_common = {
     }
 }
 
+schema_traceroute_common = {
+    'status': {'type': 'integer'},
+    'message': {'type': 'string'},
+    'requestId': {'type': 'integer'},
+    'data': {
+        'type': 'dict',
+        'schema': {
+            'action': {'type': 'string'},
+            'tracerouteCode': {'type': 'integer'},
+            'host': {'type': 'string'},
+            'hostAddress': {'type': 'string'},
+            'hopCount': {'type': 'integer'},
+            'results': {'type': 'list'}
+        }
+    }
+}
+
+schema_traceroute_result = {
+    'hopHost': {'type': 'string'},
+    'hopAddress': {'type': 'string'},
+    'hopErrorCode': {'type': 'integer'},
+    'hopRTTimes': {'type': 'float'}
+}
+
+
 schema_lanView_common = {
-    "status": {'type': 'int'},
+    "status": {'type': 'integer'},
     "message": {'type': 'string'},
-    "requestId": {'type': 'string'},
+    "requestId": {'type': 'integer'},
     "data": {
         'type': 'dict',
         'schema': {
@@ -45,14 +70,72 @@ schema_lanView_result = {
 }
 
 
-schema_wanViewConfig_result = {
-    "wanIndex": {'type': 'string'},
+schema_wanViewConfig_IPoE_Dynamic_result = {
+    "wanIndex": {'type': 'integer'},
     "wanType": {'type': 'string'},
-    "vlanId": {'type': 'string'},
+    "vlanId": {'type': 'integer'},
+    "ipVersion": {'type': 'string'}
+}
+
+schema_wanViewConfig_IPoE_Static_IPv4_result = {
+    "wanIndex": {'type': 'integer'},
+    "wanType": {'type': 'string'},
+    "vlanId": {'type': 'integer'},
+    "ipv4Address": {'type': 'string'},
+    "ipv4Netmask": {'type': 'string'},
+    "ipv4Gateway": {'type': 'string'}
+}
+
+schema_wanViewConfig_IPoE_Static_IPv6_result = {
+    "wanIndex": {'type': 'integer'},
+    "wanType": {'type': 'string'},
+    "vlanId": {'type': 'integer'},
+    "ipv6Address": {'type': 'string'},
+    "ipv6Gateway": {'type': 'string'},
+    "ipv6Type": {'type': 'string'}
+}
+
+schema_wanViewConfig_IPoE_Static_Dual_result = {
+    "wanIndex": {'type': 'integer'},
+    "wanType": {'type': 'string'},
+    "vlanId": {'type': 'integer'},
+    "ipv4Address": {'type': 'string'},
+    "ipv4Netmask": {'type': 'string'},
+    "ipv4Gateway": {'type': 'string'},
+    "ipv6Address": {'type': 'string'},
+    "ipv6Gateway": {'type': 'string'},
+    "ipv6Type": {'type': 'string'}
+}
+
+schema_wanViewConfig_PPPoE_result = {
+    "wanIndex": {'type': 'integer'},
+    "wanType": {'type': 'string'},
+    "vlanId": {'type': 'integer'},
     "ipVersion": {'type': 'string'},
     "username": {'type': 'string'},
     "password": {'type': 'string'},
-    "defaultRoute": {'type': 'string'},
+    "defaultRoute": {'type': 'boolean'},
+}
+
+schema_wanViewConfig_L2TP_or_PPTP_result = {
+    "wanIndex": {'type': 'integer'},
+    "wanType": {'type': 'string'},
+    "vlanId": {'type': 'integer'},
+    "ipVersion": {'type': 'string'},
+    "username": {'type': 'string'},
+    "password": {'type': 'string'},
+    "defaultRoute": {'type': 'boolean'},
+    "networkServer": {'type': 'string'},
+}
+
+schema_wanViewConfig_result = {
+    "wanIndex": {'type': 'integer'},
+    "wanType": {'type': 'string'},
+    "vlanId": {'type': 'integer'},
+    "ipVersion": {'type': 'string'},
+    "username": {'type': 'string'},
+    "password": {'type': 'string'},
+    "defaultRoute": {'type': 'boolean'},
 }
 
 schema_radio24GView_result = {
@@ -181,15 +264,20 @@ schema_topology_clientInfo = {
 }
 
 schema_ping_result = {
-    "pingCode": {'type': 'string'},
+    "pingCode": {'type': 'integer'},
     "host": {'type': 'string'},
     "hostAddress": {'type': 'string'},
-    "successCount": {'type': 'string'},
-    "failureCount": {'type': 'string'},
-    "averageResponseTime": {'type': 'string'},
-    "minimumResponseTime": {'type': 'string'},
-    "maximumResponseTime": {'type': 'string'},
-    "jitter": {'type': 'string'}
+    "successCount": {'type': 'integer'},
+    "failureCount": {'type': 'integer'},
+    "averageResponseTime": {'type': 'float'},
+    "minimumResponseTime": {'type': 'float'},
+    "maximumResponseTime": {'type': 'float'},
+    "jitter": {'type': 'float'}
+}
+
+schema_reboot_result = {
+    "macAddr": {'type': 'string'},
+    "status": {'type': 'string'}
 }
 
 schema_speedtest_result = {
@@ -199,122 +287,143 @@ schema_speedtest_result = {
     "latency": {'type': 'string'}
 }
 
+schema_dataNull_common = {
+    "status": {'type': 'integer'},
+    "message": {'type': 'string'},
+    "requestId": {'type': 'integer'},
+    "data": {'type': 'dict'}
+}
 
 schema_lanEdit = {
-    "status": {'type': 'int'},
+    "status": {'type': 'integer'},
     "message": {'type': 'string'},
-    "requestId": {'type': 'string'},
+    "requestId": {'type': 'integer'},
     "data": {'type': 'dict'}
 }
 
 schema_wanCreate = {
-    "status": {'type': 'int'},
+    "status": {'type': 'integer'},
     "message": {'type': 'string'},
-    "requestId": {'type': 'string'},
+    "requestId": {'type': 'integer'},
     "data": {'type': 'dict'}
 }
 
 schema_wanEdit = {
-    "status": {'type': 'int'},
+    "status": {'type': 'integer'},
     "message": {'type': 'string'},
-    "requestId": {'type': 'string'},
+    "requestId": {'type': 'integer'},
     "data": {'type': 'dict'}
 }
 
 schema_wanRemove = {
-    "status": {'type': 'int'},
+    "status": {'type': 'integer'},
     "message": {'type': 'string'},
-    "requestId": {'type': 'string'},
+    "requestId": {'type': 'integer'},
     "data": {'type': 'dict'}
 }
 
 schema_radio24GEdit = {
-    "status": {'type': 'int'},
+    "status": {'type': 'integer'},
     "message": {'type': 'string'},
-    "requestId": {'type': 'string'},
+    "requestId": {'type': 'integer'},
     "data": {'type': 'dict'}
 }
 
 schema_radio5GEdit = {
-    "status": {'type': 'int'},
+    "status": {'type': 'integer'},
     "message": {'type': 'string'},
-    "requestId": {'type': 'string'},
+    "requestId": {'type': 'integer'},
     "data": {'type': 'dict'}
 }
 
 schema_ssidEdit = {
-    "status": {'type': 'int'},
+    "status": {'type': 'integer'},
     "message": {'type': 'string'},
-    "requestId": {'type': 'string'},
+    "requestId": {'type': 'integer'},
     "data": {'type': 'dict'}
 }
 
 schema_guest24GEdit = {
-    "status": {'type': 'int'},
+    "status": {'type': 'integer'},
     "message": {'type': 'string'},
-    "requestId": {'type': 'string'},
+    "requestId": {'type': 'integer'},
     "data": {'type': 'dict'}
 }
 
 schema_guest5GEdit = {
-    "status": {'type': 'int'},
+    "status": {'type': 'integer'},
     "message": {'type': 'string'},
-    "requestId": {'type': 'string'},
+    "requestId": {'type': 'integer'},
     "data": {'type': 'dict'}
 }
 
 schema_repeater24GEdit = {
-    "status": {'type': 'int'},
+    "status": {'type': 'integer'},
     "message": {'type': 'string'},
-    "requestId": {'type': 'string'},
+    "requestId": {'type': 'integer'},
     "data": {'type': 'dict'}
 }
 
 schema_repeater5GEdit = {
-    "status": {'type': 'int'},
+    "status": {'type': 'integer'},
     "message": {'type': 'string'},
-    "requestId": {'type': 'string'},
+    "requestId": {'type': 'integer'},
     "data": {'type': 'dict'}
 }
 
 schema_portforwardCreate = {
-    "status": {'type': 'int'},
+    "status": {'type': 'integer'},
     "message": {'type': 'string'},
-    "requestId": {'type': 'string'},
+    "requestId": {'type': 'integer'},
     "data": {'type': 'dict'}
 }
 
 schema_portforwardRemove = {
-    "status": {'type': 'int'},
+    "status": {'type': 'integer'},
     "message": {'type': 'string'},
-    "requestId": {'type': 'string'},
+    "requestId": {'type': 'integer'},
     "data": {'type': 'dict'}
 }
 
 schema_ddnsCreate = {
-    "status": {'type': 'int'},
+    "status": {'type': 'integer'},
     "message": {'type': 'string'},
-    "requestId": {'type': 'string'},
+    "requestId": {'type': 'integer'},
     "data": {'type': 'dict'}
 }
 
 schema_ddnsEdit = {
-    "status": {'type': 'int'},
+    "status": {'type': 'integer'},
     "message": {'type': 'string'},
-    "requestId": {'type': 'string'},
+    "requestId": {'type': 'integer'},
     "data": {'type': 'dict'}
 }
 
 schema_ddnsRemove = {
-    "status": {'type': 'int'},
+    "status": {'type': 'integer'},
     "message": {'type': 'string'},
-    "requestId": {'type': 'string'},
+    "requestId": {'type': 'integer'},
     "data": {'type': 'dict'}
 }
 
 schema_passwordEdit = {
-    "status": {'type': 'int'},
+    "status": {'type': 'integer'},
     "message": {'type': 'string'},
-    "requestId": {'type': 'string'},
+    "requestId": {'type': 'integer'},
+    "data": {'type': 'dict'}
+}
+
+schema_addNewNode = {
+    "status": {'type': 'integer'},
+    "message": {'type': 'string'},
+    "requestId": {'type': 'integer'},
+    "data": {'type': 'dict'}
+}
+
+
+schema_syncONTConfig = {
+    "status": {'type': 'integer'},
+    "message": {'type': 'string'},
+    "requestId": {'type': 'integer'},
     "data": {'type': 'dict'}
 }

@@ -55,7 +55,11 @@ class BaseClient:
         resultRes = utl.search_nodes_using_json_path(resBody, jsonPath="$..results")
         return resultRes
 
-    def valid_schema_common(self, resBody, schema=scTmp.schema_common, require_all=True):
+    def valid_schema_common(self, resBody, schema=None, require_all=True):
+
+        if schema is None:
+            schema = scTmp.schema_common
+
         valid = Validator(schema=schema, require_all=require_all)
         is_valid = valid.validate(resBody)
         assert_that(is_valid, description=valid.errors).is_true()

@@ -11,9 +11,14 @@ class syncONTConfigClient(BaseClient):
         self.url = cfg.url_Agent
         self.request = API_lib()
 
-    def Create_syncONTConfig_Pload(self, action=None, reqID=None):
+    def Create_syncONTConfig_Pload(self, action=None, reqID=None, enable=None):
         pload = cfg.req_syncONTConfig
         payload = self.set_payload_with_action_reqID(pload=pload, action=action, reqID=reqID)
+
+        if enable is not None:
+            payload['enableSync'] = enable
+        else:
+            payload['enableSync'] = pload['enableSync']
         return payload
 
     def syncONTConfig(self, cookies=None, pload=None):
