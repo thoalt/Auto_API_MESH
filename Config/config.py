@@ -28,7 +28,6 @@ MIN_TIMEOUT = 2
 MAX_TIMEOUT = 30
 AVG_TIMEOUT = 10
 
-# SSH INFORMATION
 USER_SSH = "root"
 PASS_SSH = "VNPT@88Tech"
 PORT_NUM = "22"
@@ -42,7 +41,6 @@ CAP_URL = f"http://{IP_ADDR_CAP}/"
 USER_GUI = "root"
 PASS_GUI = "VNPT"
 
-# API JSON
 req_discovery = {
     "action": "discovery",
     "clientMac": "<clientMac>",
