@@ -27,9 +27,6 @@ class Test_LanView():
         time.sleep(self.timeOut)
         response = self.LanviewClt.lanView(self.cookie)
         resBody = response.body
-
-
-
         self.LanviewClt.assert_response(resBody,
                                         self.exp['code'],
                                         self.exp['msg'],
