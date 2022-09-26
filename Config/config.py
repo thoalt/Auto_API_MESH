@@ -1,8 +1,8 @@
 IP_ADDR_CAP = "192.168.88.1"
-CLIENT_MAC = "00:0E:C6:59:A1:A6"
+CLIENT_MAC = "D8:D0:90:3A:94:D6"
 SALT = "D2...40."
 STR_ENCRYPT = "VNPT"
-SERIAL = "1292922130B4454"
+SERIAL = "1290912164A242A"
 
 SSID = "API_TEST_ThoaLT"
 PASSWORD = "1234567890"
@@ -28,7 +28,6 @@ MIN_TIMEOUT = 2
 MAX_TIMEOUT = 30
 AVG_TIMEOUT = 10
 
-# SSH INFORMATION
 USER_SSH = "root"
 PASS_SSH = "VNPT@88Tech"
 PORT_NUM = "22"
@@ -42,7 +41,6 @@ CAP_URL = f"http://{IP_ADDR_CAP}/"
 USER_GUI = "root"
 PASS_GUI = "VNPT"
 
-# API JSON
 req_discovery = {
     "action": "discovery",
     "clientMac": "<clientMac>",
