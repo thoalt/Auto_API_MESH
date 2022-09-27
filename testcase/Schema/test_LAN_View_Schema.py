@@ -1,6 +1,6 @@
 import time
 import pytest
-from APIObject.lanView import LanViewClient
+from APIObject.lanAPI import LanViewClient
 from Config import Schema_Template as scTmp
 
 

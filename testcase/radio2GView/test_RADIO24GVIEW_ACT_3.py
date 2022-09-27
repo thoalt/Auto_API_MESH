@@ -1,6 +1,6 @@
 import time
 import pytest
-from APIObject.radio24GView import radio24GViewClient
+from APIObject.wifi24GAPI import radio24GViewClient
 
 @pytest.mark.usefixtures("login")
 class Test_radio24GView():

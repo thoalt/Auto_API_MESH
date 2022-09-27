@@ -1,6 +1,6 @@
 import time
 import pytest
-from APIObject.wanViewConfig import WanViewClient
+from APIObject.wanAPI import WanViewConfigClient
 
 @pytest.mark.usefixtures("login")
 class Test_Wanview():
@@ -10,7 +10,7 @@ class Test_Wanview():
         self.exp = {"code": 8, "msg": "Invalid Action"}
         self.data = ["ă", "â", "đ", "ê", "ô", "ơ", "ư", "á", "à", "ạ", "ả", "ã",
                     "Ă", "Â", "Đ", "Ê", "Ô", "Ơ", "Ư", "Á", "À", "Ạ", "Ả", "Ã"]
-        self.WanviewClt = WanViewClient()
+        self.WanviewClt = WanViewConfigClient()
 
 
 

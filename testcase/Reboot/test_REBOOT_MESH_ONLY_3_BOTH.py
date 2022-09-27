@@ -1,6 +1,7 @@
 import time
 import pytest
 from APIObject.reboot import rebootClient
+import Config.config as cfg
 
 
 @pytest.mark.usefixtures("login")
@@ -10,7 +11,8 @@ class Test_Reboot():
         self.timeOut = 5
         self.exp = {"code": 0, "msg": "Success", "action": "reboot"}
         self.rebootClt = rebootClient()
-        self.data = "A4:F4:C2:0B:44:68,A4:F4:C2:0B:44:54"
+        self.data = cfg.CAP_MAC + "," + cfg.MRE1_MAC
+
 
 
     @pytest.mark.success

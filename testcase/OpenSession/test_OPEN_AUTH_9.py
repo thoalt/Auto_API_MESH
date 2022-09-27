@@ -17,7 +17,7 @@ class Test_OpenSession():
         self.client = openssesionClient()
 
     def test_OPEN_AUTH_9(self):
-        salt = cfg.STR_ENCRYPT[:-2]
+        salt = cfg.SALT[:-2]
         md5 = utl.md5_encrypt(cfg.STR_ENCRYPT + cfg.CLIENT_MAC, salt)
         payload = self.client.Create_OpenSession_Pload(authen=md5)
         reqID, res = self.client.Open_Session(pload=payload)

@@ -1,25 +1,47 @@
+import copy
+import json
+
 from APIObject.baseClient import BaseClient
 from Config import config as cfg
 from Utilities import Utility as utl
 from base.APILib import API_lib
+from base.UDPLib import UDP_Lib
 
 
 class discoveryClient(BaseClient):
     def __init__(self):
         super().__init__()
-        self.url = cfg.url_Broadcast
-        self.request = API_lib()
+        # self.url = cfg.url_Broadcast
+        self.Client = UDP_Lib()
 
-    def Create_Discovery_Pload(self, reqID=None):
-        pload = cfg.req_discovery
+    def Create_Discovery_Pload(self, action=None, clientMac=None, authen=None, reqID=None):
+        ploadOrg = cfg.req_discovery
+        pload = copy.deepcopy(ploadOrg)
+
+        if action is not None:
+            pload['action'] = action
+        else:
+            pload['action'] = ploadOrg['action']
+
+        if clientMac is not None:
+            pload['clientMac'] = clientMac
+        else:
+            pload['clientMac'] = cfg.CLIENT_MAC
+
+        if authen is not None:
+            pload['authenString'] = authen
+        else:
+            pload['authenString'] = utl.md5_encrypt(cfg.STR_ENCRYPT + pload['clientMac'], cfg.SALT)
+
         if reqID is None:
-            reqID = utl.random_requestID()
+            pload['requestId'] = utl.random_requestID()
+        elif reqID == "Empty":
+            pload['requestId'] = None
+        else:
+            pload['requestId'] = reqID
 
-        pload['clientMac'] = cfg.CLIENT_MAC
-        pload['authenString'] = utl.md5_encrypt(cfg.STR_ENCRYPT + cfg.CLIENT_MAC, cfg.SALT)
-        pload['requestId'] = reqID
-        print("*********** PAYLOAD ***************")
-        print(pload)
+        print("\n ****************** DISCOVERY PAYLOAD *****************")
+        print(json.dumps(pload, indent=4))
         return pload
 
     def discovery(self, reqID=None, pload=None):
@@ -28,5 +50,6 @@ class discoveryClient(BaseClient):
         else:
             payload = pload
 
-        response = self.request.post(url=self.url, headers=self.headersCurl, pload=payload)
+        bytesPload = bytes(json.dumps(payload), "utf-8")
+        response = self.Client.Send_To(byteToSend=bytesPload)
         return response

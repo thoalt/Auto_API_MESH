@@ -1,6 +1,6 @@
 import time
 import pytest
-from APIObject.wanViewConfig import WanViewClient
+from APIObject.wanAPI import WanViewConfigClient
 
 @pytest.mark.usefixtures("login")
 class Test_Wanview():
@@ -9,7 +9,7 @@ class Test_Wanview():
         self.timeOut = 2
         self.exp = {"code": 11, "msg": "Verify Fail"}
         self.data = [2147483648]
-        self.WanviewClt = WanViewClient()
+        self.WanviewClt = WanViewConfigClient()
 
     @pytest.mark.success
     def test_WANVIEW_REQID_4(self):

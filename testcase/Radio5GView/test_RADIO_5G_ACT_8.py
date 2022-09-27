@@ -1,6 +1,6 @@
 import time
 import pytest
-from APIObject.radio5GView import radio5GViewClient
+from APIObject.wifi5GAPI import radio5GViewClient
 
 
 @pytest.mark.usefixtures("login")

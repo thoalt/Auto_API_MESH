@@ -3,7 +3,7 @@ import pytest
 from base.SSHLib import SSH_Lib
 from APIObject.openssesion import openssesionClient
 from APIObject.login import LoginClient
-from APIObject.lanView import LanViewClient
+from APIObject.lanAPI import LanViewClient
 
 
 @pytest.mark.usefixtures("create_shell")

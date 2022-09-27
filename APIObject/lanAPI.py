@@ -46,3 +46,36 @@ class LanViewClient(BaseClient):
                 for idx, resBody in enumerate(resBody_Lst):
                     self.assert_result(resBody, netMask=netMask_Lst[idx])
 
+
+class LanEditClient(BaseClient):
+    def __init__(self):
+        super().__init__()
+        self.url = cfg.url_Agent
+        self.request = API_lib()
+
+    def Create_LanEdit_Payload(self, action=None, ipAddr=None, netMask=None, reqID=None):
+        pload = cfg.req_lanEdit
+        payload = self.set_payload_with_action_reqID(pload=pload, action=action, reqID=reqID)
+
+        if ipAddr is not None:
+            payload['ipAddr'] = ipAddr
+        else:
+            payload['ipAddr'] = pload['ipAddr']
+
+        if netMask is not None:
+            payload['subnetMask'] = netMask
+        else:
+            payload['subnetMask'] = pload['subnetMask']
+
+        return payload
+
+
+    def lanEdit(self, cookies=None, pload=None):
+        if pload is None:
+            payload = self.Create_LanEdit_Payload()
+        else:
+            payload = pload
+
+        response = self.request.post(url=self.url, headers=self.headersCurl, cookies=cookies, pload=payload)
+        return response
+    

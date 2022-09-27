@@ -1,6 +1,6 @@
 import time
 import pytest
-from APIObject.lanView import LanViewClient
+from APIObject.lanAPI import LanViewClient
 from pages.SettingLANPage import SettingLANPage
 
 @pytest.mark.usefixtures("login", "login_CAP_GUI")

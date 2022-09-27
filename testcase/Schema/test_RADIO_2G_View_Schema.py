@@ -1,6 +1,6 @@
 import time
 import pytest
-from APIObject.radio24GView import radio24GViewClient
+from APIObject.wifi24GAPI import radio24GViewClient
 from Config import Schema_Template as scTmp
 
 @pytest.mark.usefixtures("login")

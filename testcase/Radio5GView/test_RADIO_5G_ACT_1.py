@@ -3,8 +3,8 @@ import pytest
 from base.SSHLib import SSH_Lib
 from APIObject.openssesion import openssesionClient
 from APIObject.login import LoginClient
-from APIObject.wanViewConfig import WanViewClient
-from APIObject.radio5GView import radio5GViewClient
+from APIObject.wanAPI import WanViewConfigClient
+from APIObject.wifi5GAPI import radio5GViewClient
 
 
 @pytest.mark.usefixtures("login")

@@ -50,6 +50,16 @@ schema_traceroute_result = {
     'hopRTTimes': {'type': 'float'}
 }
 
+schema_discovery_result = {
+    'modelName': {'type': 'string'},
+    'deviceMac': {'type': 'string'},
+    'serialNumber': {'type': 'string'},
+    'ipAddr': {'type': 'string'},
+    'dbVersion': {'type': 'integer'},
+    'deviceType': {'type': 'integer'},
+    'firmwareVersion': {'type': 'string'},
+    'deviceList': {'type': 'list'},
+}
 
 schema_lanView_common = {
     "status": {'type': 'integer'},

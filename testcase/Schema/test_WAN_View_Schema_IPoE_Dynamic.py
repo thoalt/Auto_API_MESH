@@ -1,6 +1,6 @@
 import time
 import pytest
-from APIObject.wanViewConfig import WanViewClient
+from APIObject.wanAPI import WanViewConfigClient
 from Config import Schema_Template as scTmp
 
 
@@ -15,7 +15,7 @@ class Test_Schema_For_WAN():
     def set_up(self):
         self.timeOut = 2
         # Call API Lanview
-        self.WanviewClt = WanViewClient()
+        self.WanviewClt = WanViewConfigClient()
 
     def test_LanView_Schema(self):
         time.sleep(self.timeOut)
