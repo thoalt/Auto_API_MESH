@@ -50,8 +50,7 @@ class Test_Wan_Create():
             IPVer=self.IPVer,
             IPV6Addr=self.ipv6Addr,
             IPV6GW=self.ipv6GW,
-            ipv6Type=self.ipv6Type,
-            dftRoute=self.defaultRoute
+            ipv6Type=self.ipv6Type
         )
 
         resBody = self.wanCreateClt.wanCreateEdit(self.cookie, pload=pload).body
@@ -66,8 +65,7 @@ class Test_Wan_Create():
                                       self.IPVer,
                                       IPV6Addr=self.ipv6Addr,
                                       IPV6GW=self.ipv6GW,
-                                      ipv6Type=self.ipv6Type,
-                                      dftRoute=self.defaultRoute)
+                                      ipv6Type=self.ipv6Type)
 
         # GUI Setting
         self.wp.navigate_to_WAN_3_setting_page()

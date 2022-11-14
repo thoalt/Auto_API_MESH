@@ -51,25 +51,3 @@ class Test_Wan_Create():
         self.wanCreateClt.assert_response(resBody,
                                         self.exp['code'],
                                         self.exp['msg'])
-        # time.sleep(30)
-        # resBody = self.wanViewClt.wanViewConfig(self.cookie).body
-        #
-        # self.wanViewClt.assert_result_WAN2(resBody,
-        #                               self.wanType,
-        #                               self.vlanID,
-        #                               self.IPVer,
-        #                               userName=self.userName,
-        #                               passW=self.passW)
-        #
-        # # Get Infor in GUI
-        # self.wp.navigate_to_WAN_2_setting_page()
-        # wanTypeGUI = self.wanViewClt.convert_wantype_API_to_GUI(self.wanType)
-        # ipVerGui = self.wanViewClt.conver_IPVer_API_To_GUI(self.IPVer)
-        #
-        # self.wanViewClt.assert_val(str(wanTypeGUI), str(self.wp.get_service()))
-        # self.wanViewClt.assert_val(int(self.vlanID), int(self.wp.get_VLAN_ID()))
-        # self.wanViewClt.assert_val(ipVerGui, self.wp.get_IPVersion())
-        #
-        # self.wanViewClt.assert_val(self.userName, self.wp.get_PPPoE_IPV4_User())
-        # self.wanViewClt.assert_val(self.passW, self.wp.get_PPPoE_IPV4_Pass())
-        # self.wanViewClt.assert_val(self.defRoute, self.wp.get_default_route())

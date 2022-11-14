@@ -241,7 +241,8 @@ class SettingWANPage(Web_Lib):
         time.sleep(1)
         self.click_Edit2()
         time.sleep(1)
-        # self.click_Basic_Tab()
+        self.click_Basic_Tab()
+        time.sleep(1)
 
     def navigate_to_WAN_3_setting_page(self):
         self.click_setting_cap()
@@ -249,7 +250,8 @@ class SettingWANPage(Web_Lib):
         time.sleep(1)
         self.click_Edit3()
         time.sleep(1)
-        # self.click_Basic_Tab()
+        self.click_Basic_Tab()
+        time.sleep(1)
 
 
     def setting_WAN_IPV4(self, service=None, IPVer=None, IPV4Addr=None, IPV4Net=None,
