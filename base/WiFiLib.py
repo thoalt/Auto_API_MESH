@@ -1,10 +1,22 @@
+from dataclasses import dataclass
 import io
 import os
 import subprocess
 import sys
 import tempfile
+import time
 from typing import List
 from Utilities import global_dir
+from Config import config as cfg
+
+@dataclass
+class WifiInfo:
+    SSID : str
+    BSSID: str
+    standard: str
+    channel: str
+    receiveRate: str
+    transmissRate: str
 
 class Wifi_lib:
     def get_profile_template(self):
@@ -93,13 +105,201 @@ class Wifi_lib:
     def disconnect(self):
         self.netsh(['wlan', 'disconnect'])
 
-    def connect_wifi(self, ssid: str = '', auth: str = '', encrypt: str = '', passwd: str = '',
-                     remember: bool = True, bssid: str = '', GUID=None):
+    def connect_wifi(self, ssid: str = None, auth: str = None, encrypt: str = None, passwd: str = None,
+                     remember: bool = True, bssid: str = '', GUID=None, wifiName=None):
 
-        profile = self.gen_profile(ssid=ssid, auth=auth, encrypt=encrypt, passwd=passwd, remember=remember)
-        self.add_profile(profile)
+        if ssid is None:
+            ssid = cfg.SSID
 
-        self.connect(ssid=ssid, bssid=bssid, profileName=ssid, GUID=GUID)
+        if auth is None:
+            auth = cfg.auth
+
+        if encrypt is None:
+            encrypt = cfg.encrypt
+
+        if passwd is None:
+            passwd = cfg.PASSWORD
+
+        if GUID is None:
+            GUID = cfg.GUID
+
+        if wifiName is None:
+            wifiName = cfg.CARD_WIFI_NAME
+
+        try:
+            profile = self.gen_profile(ssid=ssid, auth=auth, encrypt=encrypt, passwd=passwd, remember=remember)
+            self.add_profile(profile)
+
+            for i in range(0, 5):
+                self.connect(ssid=ssid, bssid=bssid, profileName=ssid, GUID=GUID)
+                time.sleep(5)
+                if not self.check_connect_success(wifiName=wifiName):
+                    time.sleep(10)
+                else:
+                    break
+            else:
+                raise Exception(f"Cannot connect {ssid} via {bssid}")
+        except:
+            raise Exception(f"Cannot connect {ssid} via {bssid}")
+
+    def check_connect_success(self, wifiName):
+        status = False
+        state = ''
+        preStr = "Name                   : " + wifiName
+        output: str = self.netsh(['wlan', 'show', 'interface']).stdout
+        lines = output.split('\n')
+
+        for idx, line in enumerate(lines):
+            if preStr in line:
+                stateLine = lines[idx + 4]
+                state = stateLine.split(":")[1].replace(' ', '')
+                break
+        if state == "connected":
+            status = True
+        else:
+            status = False
+        return status
+
+    def Get_Wifi_Info_Show_Interface(self, wifiName):
+        ssid, bssid, standard, channel, recRate, transRate = '', '', '', '', '', ''
+        preStr = "Name                   : " + wifiName
+        output: str = self.netsh(['wlan', 'show', 'interface']).stdout
+        lines = output.split('\n')
+
+        for idx, line in enumerate(lines):
+            if preStr in line:
+                ssid = lines[idx + 5].split(" : ")[1].upper()
+                bssid = lines[idx + 6].split(" : ")[1].upper()
+                standard = lines[idx + 8].split(" : ")[1]
+                channel = lines[idx + 12].split(" : ")[1]
+                recRate = lines[idx + 13].split(" : ")[1]
+                transRate = lines[idx + 14].split(" : ")[1]
+
+        return WifiInfo(ssid, bssid, standard, channel, recRate, transRate)
+
+    def get_BSSID_connected(self, wifiName):
+        status = False
+        bssid = ''
+        preStr = "Name                   : " + wifiName
+        output: str = self.netsh(['wlan', 'show', 'interface']).stdout
+        lines = output.split('\n')
+
+        for idx, line in enumerate(lines):
+            if preStr in line:
+                bssidLine = lines[idx + 6]
+                bssid = bssidLine.split(" : ")[1].replace(' ', '')
+                break
+        return bssid.upper()
+
+    def Convert_Bitrate_To_Bandwith(self, standard, bitrate):
+        bandW = ''
+        if standard == "11g" and bitrate == "54":
+            bandW = "20MHz"
+
+        elif standard == "11ng" and bitrate == "144":
+            bandW = "20MHz"
+
+        elif standard == "11ng" and bitrate == "300":
+            bandW = "20/40MHz"
+
+        elif standard == "11a" and bitrate == "54":
+            bandW = "20MHz"
+
+        elif standard == "11na" and bitrate == "144":
+            bandW = "20MHz"
+
+        elif standard == "11na" and bitrate == "300":
+            bandW = "40MHz"
+
+        elif standard == "11ac" and bitrate == "360":
+            bandW = "20MHz"
+
+        elif standard == "11ac" and bitrate == "400":
+            bandW = "40MHz"
+
+        elif standard == "11ac" and bitrate == "867":
+            bandW = "80MHz"
+
+        elif standard == "11ac" and bitrate == "1730":
+            bandW = "160MHz"
+
+        print("***********BIT RATE **********")
+        print(bitrate)
+
+        print("****************** BAND WIDTH ***********")
+        print(bandW)
+
+        return bandW
+
+    def Convert_BandW_To_Bitrate(self, standard, bandW):
+        bitRate = ''
+        if standard == "11g" and bandW == "20MHz":
+            bitRate = "54"
+
+        elif standard == "11ng" and bandW == "20MHz":
+            bitRate = "144"
+
+        elif standard == "11ng" and bandW == "40MHz":
+            bitRate = "300"
+
+        elif standard == "11a" and bandW == "20MHz":
+            bitRate = "54"
+
+        elif standard == "11na" and bandW == "20MHz":
+            bitRate = "144"
+
+        elif standard == "11na" and bandW == "40MHz":
+            bitRate = "300"
+
+        elif standard == "11ac" and bandW == "20MHz":
+            bitRate = "360"
+
+        elif standard == "11ac" and bandW == "40MHz":
+            bitRate = "400"
+
+        elif standard == "11ac" and bandW == "80MHz":
+            bitRate = "867"
+
+        elif standard == "11ac" and bandW == "160MHz":
+            bitRate = "1730"
+
+        return bitRate
+
+    # def get_Radio_Type(self, wifiName):
+    #     standard = ''
+    #     preStr = "Name                   : " + wifiName
+    #     output: str = self.netsh(['wlan', 'show', 'interface']).stdout
+    #     lines = output.split('\n')
+    #
+    #     for idx, line in enumerate(lines):
+    #         if preStr in line:
+    #             standard = lines[idx + 8].split(" : ")[1].replace(' ', '')
+    #             break
+    #     return standard
+    #
+    # def get_Channel(self, wifiName):
+    #     channel = ''
+    #     preStr = "Name                   : " + wifiName
+    #     output: str = self.netsh(['wlan', 'show', 'interface']).stdout
+    #     lines = output.split('\n')
+    #
+    #     for idx, line in enumerate(lines):
+    #         if preStr in line:
+    #             channel = lines[idx + 12].split(" : ")[1].replace(' ', '')
+    #             break
+    #     return channel
+    #
+    # def get_Receive_Rate(self, wifiName):
+    #     channel = ''
+    #     preStr = "Name                   : " + wifiName
+    #     output: str = self.netsh(['wlan', 'show', 'interface']).stdout
+    #     lines = output.split('\n')
+    #
+    #     for idx, line in enumerate(lines):
+    #         if preStr in line:
+    #             channel = lines[idx + 12].split(" : ")[1].replace(' ', '')
+    #             break
+    #     return channel
 
     def check_ping(self, serverAddr, srcAddr=None, count=None) -> bool:
         if count is None:
@@ -112,7 +312,7 @@ class Wifi_lib:
 
         print(cmdPing)
         output: str = self.run_command(cmd=cmdPing, timeout=count+3).stdout
-        print(output)
+        # print(output)
         lines = output.split("\n")
 
         totalSent = lines[-4].split(',')[0].split('=')[1]

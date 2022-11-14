@@ -1,7 +1,5 @@
-from assertpy import assert_that, soft_assertions
 from APIObject.baseClient import BaseClient
 from Config import config as cfg
-from Utilities import Utility as utl
 from base.APILib import API_lib
 
 
@@ -15,8 +13,8 @@ class passwordEditClient(BaseClient):
         pload = cfg.req_passwordEdit
         payload = self.set_payload_with_action_reqID(pload=pload, action=action, reqID=reqID)
 
-        if userName: payload['username'] = userName
-        if password: password['password'] = password
+        if userName: payload.update({'username': userName})
+        if password: payload.update({'password': password})
 
         return payload
 

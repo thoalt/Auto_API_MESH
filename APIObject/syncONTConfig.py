@@ -26,6 +26,5 @@ class syncONTConfigClient(BaseClient):
             payload = self.Create_syncONTConfig_Pload()
         else:
             payload = pload
-
         response = self.request.post(url=self.url, headers=self.headersCurl, cookies=cookies, pload=payload)
         return response

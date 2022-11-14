@@ -1,4 +1,7 @@
 import time
+
+from selenium.webdriver.common.by import By
+
 from base.WEBLib import Web_Lib
 
 class SettingWANPage(Web_Lib):
@@ -8,6 +11,7 @@ class SettingWANPage(Web_Lib):
     # Get all locator from main page, sub page
     lnkSettingCap_xpath = "//a[@id='titleSettingCap']"
     lnkWAN_xpath = "//a[@id='sub51']"
+    lbWanService_xpath = "//label[@id='LB_WAN_SERIVCE']"
 
     btnEdit_xpath = "//img[@onclick='EditWan(0);']"
     btnEditWan1_xpath = "//img[@onclick='EditWan(1);']"
@@ -62,6 +66,9 @@ class SettingWANPage(Web_Lib):
     def click_WAN(self):
         self.wait_and_click_element(self.lnkWAN_xpath)
 
+    def get_wantype_overpage(self):
+        return self.wait_and_get_property_element(self.lbWanService_xpath, property_name='innerText')
+
     def click_Edit(self):
         self.wait_and_click_element(self.btnEdit_xpath)
 
@@ -83,29 +90,57 @@ class SettingWANPage(Web_Lib):
     def select_service(self, serviceName):
         self.wait_and_select_item(self.drpService_xpath, serviceName)
 
+    def get_service(self):
+        return self.wait_and_get_selected_text(self.drpService_xpath)
+
     def select_IPVersion(self, IPVersion):
         self.wait_and_select_item(self.drpIPVersion_xpath, IPVersion)
+
+    def get_IPVersion(self):
+        return self.wait_and_get_selected_text(self.drpIPVersion_xpath)
 
     def set_IPV4_Addr(self, ipv4_Addr):
         self.wait_and_set_text_element_with_delete(self.txtIPV4Addr_xpath, ipv4_Addr)
 
+    def get_IPV4_Addr(self):
+        return self.wait_and_get_attribute_element(xpath=self.txtIPV4Addr_xpath, attribute_name='value')
+
     def select_IPV4_Netmask(self, netmask):
         self.wait_and_select_item(self.drpIPV4Subnet, netmask)
+
+    def get_IPV4_Netmask(self):
+        return self.wait_and_get_selected_text(self.drpIPV4Subnet)
 
     def set_IPV4_Gateway(self, ipv4_gateway):
         self.wait_and_set_text_element_with_delete(self.txtIPV4Gateway_xpath, ipv4_gateway)
 
+    def get_IPV4_Gateway(self):
+        return self.wait_and_get_attribute_element(xpath=self.txtIPV4Gateway_xpath, attribute_name='value')
+
     def set_Pri_DNS(self, dns):
         self.wait_and_set_text_element_with_delete(self.txtPRIDNS_xpath, dns)
+
+    def get_Pri_DNS(self):
+        return self.wait_and_get_attribute_element(xpath=self.txtPRIDNS_xpath, attribute_name='value')
 
     def set_Sec_DNS(self, dns):
         self.wait_and_set_text_element_with_delete( self.txtSECDNS_xpath, dns)
 
+    def get_Sec_DNS(self):
+        return self.wait_and_get_attribute_element(xpath=self.txtSECDNS_xpath, attribute_name='value')
+
     def set_IPV6_Addr(self, ipv6_addr):
         self.wait_and_set_text_element_with_delete(self.txtIPV6Addr_xpath, ipv6_addr)
 
+    def get_IPV6_Addr(self):
+        return self.wait_and_get_attribute_element(xpath=self.txtIPV6Addr_xpath, attribute_name='value')
+
     def set_IPV6_Gateway(self, ipv6_gateway):
         self.wait_and_set_text_element_with_delete(self.txtIPV6Gateway_xpath, ipv6_gateway)
+
+    def get_IPV6_Gateway(self):
+        return self.wait_and_get_attribute_element(xpath=self.txtIPV6Gateway_xpath, attribute_name='value')
+
 
     def set_MTU(self, MTUVal):
         self.wait_and_set_text_element_with_delete(self.txtMTU_xpath, MTUVal)
@@ -119,8 +154,14 @@ class SettingWANPage(Web_Lib):
     def set_PPPoE_IPV4_User(self, userName):
         self.wait_and_set_text_element_with_delete(self.txtPPPoEUser_xpath, userName)
 
+    def get_PPPoE_IPV4_User(self):
+        return self.wait_and_get_attribute_element(xpath=self.txtPPPoEUser_xpath, attribute_name='value')
+
     def set_PPPoE_IPV4_Pass(self, password):
         self.wait_and_set_text_element_with_delete(self.txtPPPoEPass_xpath, password)
+
+    def get_PPPoE_IPV4_Pass(self):
+        return self.wait_and_get_attribute_element(xpath=self.txtPPPoEPass_xpath, attribute_name='value')
 
     def click_Add_WAN(self):
         self.wait_and_click_element(self.btnAddWAN_xpath)
@@ -128,23 +169,52 @@ class SettingWANPage(Web_Lib):
     def set_Input_Server(self, serverAddr):
         self.wait_and_set_text_element_with_delete(self.txtInputServer_xpath, serverAddr)
 
+    def get_Input_Server(self):
+        return self.wait_and_get_attribute_element(xpath=self.txtInputServer_xpath, attribute_name='value')
+
     def set_Input_User(self, userName):
         self.wait_and_set_text_element_with_delete(self.txtInputUser_xpath, userName)
+
+    def get_Input_User(self):
+        return self.wait_and_get_attribute_element(xpath=self.txtInputUser_xpath, attribute_name='value')
 
     def set_Input_Password(self, password):
         self.wait_and_set_text_element_with_delete(self.txtInputPass_xpath, password)
 
-    def get_wan_service(self):
-        return self.wait_and_get_text_element(self.lbService_xpath)
+    def get_Input_Password(self):
+        return self.wait_and_get_attribute_element(xpath=self.txtInputPass_xpath, attribute_name='value')
 
-    def get_wan_IPv4(self):
-        return self.wait_and_get_text_element(self.lbIPv4_xpath)
+    def get_default_route(self):
+        return self.wait_and_get_checkbox_selected(xpath="//input[@id='Enable_Default_Route']")
+    # def get_wan_service(self):
+    #     return self.wait_and_get_text_element(self.lbService_xpath)
+    #
+    # def get_wan_IPv4(self):
+    #     return self.wait_and_get_text_element(self.lbIPv4_xpath)
+    #
+    # def get_wan_IPv6(self):
+    #     return self.wait_and_get_text_element(self.lbIPV6_xpath)
+    #
+    # def get_wan_gateway(self):
+    #     return self.wait_and_get_text_element(self.lbGateway_xpath)
 
-    def get_wan_IPv6(self):
-        return self.wait_and_get_text_element(self.lbIPV6_xpath)
+    def get_VLAN_ID(self):
+        vlanID = ''
+        ckb_vlanID = "//input[contains(@id, 'check_interface_eth0')]"
+        eleList = self.driver.find_elements(By.XPATH, ckb_vlanID)
+        for ele in eleList:
+            if ele.get_attribute("checked"):
+                valueStr = ele.get_attribute(name='value')
+                vlanID = valueStr.split(".")[1]
+                break
+        return vlanID
 
-    def get_wan_gateway(self):
-        return self.wait_and_get_text_element(self.lbGateway_xpath)
+
+    def navigate_to_WAN_page(self):
+        self.click_setting_cap()
+        time.sleep(1)
+        self.click_WAN()
+        time.sleep(1)
 
     def navigate_to_WAN_setting_page(self):
         self.click_setting_cap()
@@ -153,7 +223,8 @@ class SettingWANPage(Web_Lib):
         time.sleep(1)
         self.click_Edit()
         time.sleep(1)
-        # self.click_Basic_Tab()
+        self.click_Basic_Tab()
+        time.sleep(1)
 
     def navigate_to_WAN_1_setting_page(self):
         self.click_setting_cap()
@@ -161,7 +232,8 @@ class SettingWANPage(Web_Lib):
         time.sleep(1)
         self.click_Edit1()
         time.sleep(1)
-        # self.click_Basic_Tab()
+        self.click_Basic_Tab()
+        time.sleep(1)
 
     def navigate_to_WAN_2_setting_page(self):
         self.click_setting_cap()
@@ -181,7 +253,7 @@ class SettingWANPage(Web_Lib):
 
 
     def setting_WAN_IPV4(self, service=None, IPVer=None, IPV4Addr=None, IPV4Net=None,
-                         IPV4GW=None, PriDNS=None, SecDNS = None,
+                         IPV4GW=None, PriDNS=None, SecDNS=None,
                          mtu=None, clickApply=True):
         self.click_Basic_Tab()
         #time.sleep(1)

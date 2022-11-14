@@ -24,3 +24,6 @@ class topologyClient(BaseClient):
 
         response = self.request.post(url=self.url, headers=self.headersCurl, cookies=cookies, pload=payload)
         return response
+
+    # def assert_res_result(self, resBody, deviceType=None, connectType=None):
+    #     deviceType = utl.search_nodes_using_json_path(resBody, jsonPath="$..results[*].deviceType")

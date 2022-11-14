@@ -25,6 +25,8 @@ class MeshPage(Web_Lib):
     btnJoinSSID_xpath = "//tbody/tr[3]/td[2]/input[1]"
 
     lbMeshName_xpath = "//label[@id='SSID']"
+    btnDisableONTMesh_xpath = "//img[@id='disable_syncONT']"
+    btnEnableONTMesh_xpath = "//img[@id='enable_syncONT']"
 
     # Init method
     def __init__(self, driver):
@@ -78,6 +80,34 @@ class MeshPage(Web_Lib):
     def click_apply_join_manual(self):
         self.wait_and_click_element(self.btnApplyJoinManu_xpath)
 
+    def click_enable_sync_ONT(self):
+        self.wait_and_click_element(self.btnEnableONTMesh_xpath)
+
+    def click_disable_sync_ONT(self):
+        self.wait_and_click_element(self.btnDisableONTMesh_xpath)
+
+    def get_enable_sync_ONT_status(self):
+        status = False
+        style = self.wait_and_get_attribute_element(self.btnEnableONTMesh_xpath, attribute_name='style')
+        if style == "display: none;":
+            status = False
+        elif style == "display: block;":
+            status = True
+        return status
+
+    def get_disable_sync_ONT_status(self):
+        status = False
+        style = self.wait_and_get_attribute_element(self.btnDisableONTMesh_xpath, attribute_name='style')
+        if style == "display: none;":
+            status = True
+        elif style == "display: block;":
+            status = False
+        return status
+
+    def navigate_to_mesh_tab(self):
+        self.click_mesh_tab()
+        time.sleep(1)
+
     def navigate_to_create_mesh_network(self):
         self.click_mesh_tab()
         time.sleep(1)
@@ -92,7 +122,8 @@ class MeshPage(Web_Lib):
         self.click_join_manual_mesh()
         time.sleep(2)
 
-    def set_create_mesh(self, meshMode=None, SSID=None, password=None, clickAction=True):
+    def set_create_mesh(self, stateSync=None, meshMode=None, SSID=None, password=None, clickAction=True):
+
         if meshMode is not None:
             self.select_mesh_mode(meshMode)
 
@@ -104,6 +135,8 @@ class MeshPage(Web_Lib):
 
         if clickAction:
             self.click_apply()
+            time.sleep(0.5)
+            self.accept_alert()
 
     def set_join_manual(self, SSID=None, password=None, clickAction=True):
         if SSID is not None:
@@ -114,6 +147,15 @@ class MeshPage(Web_Lib):
 
         if clickAction:
             self.click_apply_join_manual()
+
+    def set_sync_ONT(self, stateSync=None):
+        if stateSync == True:
+            self.click_enable_sync_ONT()
+            self.accept_alert()
+
+        else:
+            self.click_disable_sync_ONT()
+            self.accept_alert()
 
     def get_alert_info(self):
         alert_text = self.get_alert_text()

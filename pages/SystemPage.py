@@ -180,6 +180,7 @@ class SystemManagerPage(SystemPage):
 
     def get_reboot(self):
         return
+
     def click_btn_apply(self):
         self.wait_and_click_element(self.btnApply_xpath)
 
@@ -220,6 +221,11 @@ class SystemManagerPage(SystemPage):
 
         if clickBtnUpdate:
             self.click_update_pass()
+            time.sleep(1)
+            self.accept_alert()
+            time.sleep(1)
+            self.accept_alert()
+
 
     def setting_server_configuration(self, interface=None, user=None, password=None, perInteval=None, clickApply=True):
         if interface is not None:
@@ -247,4 +253,4 @@ class SystemManagerPage(SystemPage):
 
     def get_alert_info(self):
         alert_text = self.get_alert_text()
-        return (alert_text)
+        return alert_text

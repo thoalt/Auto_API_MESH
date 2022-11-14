@@ -11,7 +11,7 @@ from base.UDPLib import UDP_Lib
 class discoveryClient(BaseClient):
     def __init__(self):
         super().__init__()
-        # self.url = cfg.url_Broadcast
+        self.url = cfg.url_Broadcast
         self.Client = UDP_Lib()
 
     def Create_Discovery_Pload(self, action=None, clientMac=None, authen=None, reqID=None):
@@ -49,7 +49,10 @@ class discoveryClient(BaseClient):
             payload = self.Create_Discovery_Pload(reqID)
         else:
             payload = pload
-
+        print(payload)
         bytesPload = bytes(json.dumps(payload), "utf-8")
+        print(bytesPload)
         response = self.Client.Send_To(byteToSend=bytesPload)
+        print("*****************RESPONSE ************")
+        print(response)
         return response

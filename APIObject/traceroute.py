@@ -39,15 +39,8 @@ class TracerouteClient(BaseClient):
         response = self.request.post(url=self.url, headers=self.headersCurl, cookies=cookies, pload=payload)
         return response
 
-    def assert_trace(self, resBody, status, msg, action=None, traceCode=None, host=None, hostAddr=None, hopCnt=None):
+    def assert_trace_result(self, resBody, traceCode=None, host=None, hostAddr=None, hopCnt=None):
         with soft_assertions():
-            assert_that(resBody['status']).is_equal_to(status)
-            assert_that(resBody['message']).is_equal_to(msg)
-
-            if action is not None:
-                actionRes = utl.search_nodes_using_json_path(resBody, jsonPath="$..action")
-                assert_that(actionRes).is_equal_to(action)
-
             if traceCode is not None:
                 traceRes = utl.search_nodes_using_json_path(resBody, jsonPath="$..tracerouteCode")
                 assert_that(traceRes).is_equal_to(traceCode)
@@ -64,11 +57,10 @@ class TracerouteClient(BaseClient):
                 hopRes = utl.search_nodes_using_json_path(resBody, jsonPath="$..hopCount")
                 assert_that(hopRes).is_equal_to(hopCnt)
 
-    def assert_trace_lst(self, resBodyLst, status, msg, action=None, traceCode=None, host=None, hostAddr=None, hopCnt=None):
+    def assert_trace_result_lst(self, resBodyLst, traceCode=None, host=None, hostAddr=None, hopCnt=None):
         with soft_assertions():
             for resBody in resBodyLst:
-                self.assert_trace(resBody, status, msg, action=action,
-                                  traceCode=traceCode, host=host, hostAddr=hostAddr, hopCnt=hopCnt)
+                self.assert_trace_result(resBody, traceCode=traceCode, host=host, hostAddr=hostAddr, hopCnt=hopCnt)
 
     def get_result(self, resBody):
         resultRes = utl.search_nodes_using_json_path(resBody, jsonPath="$..results")

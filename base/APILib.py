@@ -50,8 +50,8 @@ class API_lib:
         print("***************** HEADER **********")
         print(resHeaders)
         resBody = rawBody.getvalue().decode('UTF-8')
-        # print("***************** RESPONSE **********")
-        # print(json.dumps(resBody, indent=4))
+        # print("***************** RESPONSE BEFORE LOAD **********")
+        # print(resBody)
 
         resBody = json.loads(resBody)
         print("***************** RESPONSE **********")

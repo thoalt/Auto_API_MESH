@@ -9,9 +9,9 @@ class Test_Discovery():
     def set_up(self):
         self.disClt = discoveryClient()
         self.exp = {"code": 8, "msg": "Invalid Action"}
-        self.data = ['discovery1','discover']
+        self.data = ['discovery1', 'discover']
 
-    @pytest.mark.success
+
     def test_DISCOVER_ACT_1(self):
         resBody_Lst = []
         for item in self.data:

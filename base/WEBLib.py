@@ -295,6 +295,22 @@ class Web_Lib:
         except Exception as exc:
             raise Exception("Element cannot located!" + "\n" + str(exc))
 
+    def wait_and_get_property_element(self, xpath: str, property_name: str):
+        """
+        Description: Wait element util visibility then get text
+        :param attribute_name:
+        :param xpath:
+        :param time_out:
+        :return:
+        """
+        try:
+            element: WebElement = WebDriverWait(self.driver, self.timeout). \
+                until(EC.visibility_of_element_located((By.XPATH, xpath)))
+            return element.get_property(property_name)
+
+        except Exception as exc:
+            raise Exception("Element cannot located!" + "\n" + str(exc))
+
     def wait_and_get_selected_text(self, xpath: str):
         """
         Description: Wait dropdown element element until it is presence in DOM
@@ -559,6 +575,13 @@ class Web_Lib:
         """
         return self.driver.execute_script(javascript)
 
+    def scroll_to_top_page(self):
+        """
+        Description: Scroll to the top of page
+        """
+        self.driver.execute_script("window.scrollBy(0, 0)")
+
+
     def scroll_to_bottom_page(self):
         """
         Description: Scroll to the bottom of page
@@ -570,7 +593,7 @@ class Web_Lib:
         Description: Scroll to the element
         """
         element: WebElement = self.driver.find_element(By.XPATH, xpath)
-        self.driver.execute_script("arguments[0].scrollIntoView(true);", element)
+        self.driver.execute_script("return arguments[0].scrollIntoView(true);", element)
 
     def is_image_loaded(self, xpath: str):
         """

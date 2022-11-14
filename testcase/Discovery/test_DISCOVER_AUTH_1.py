@@ -8,7 +8,7 @@ class Test_Discovery():
         self.disClt = discoveryClient()
         self.exp = {"code": 0, "msg": "Success", "action": "discovery"}
 
-    @pytest.mark.success
+
     def test_DISCOVER_ACT_1(self):
         resBody = self.disClt.discovery()
         self.disClt.assert_response(resBody,

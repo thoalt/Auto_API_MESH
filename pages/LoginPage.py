@@ -4,6 +4,7 @@
 import time
 
 from base.WEBLib import Web_Lib
+from Config import config as cfg
 
 class LoginPage(Web_Lib):
     # Get all locator
@@ -13,8 +14,16 @@ class LoginPage(Web_Lib):
     lnk_logout_xpath = "//a[contains(text(),'Logout')]"
 
     # Init method
-    def __init__(self, driver):
+    def __init__(self, driver, baseUrl=None):
         super().__init__(driver)
+
+        if baseUrl is None:
+            self.baseUrl = cfg.CAP_URL
+        else:
+            self.baseUrl = baseUrl
+
+        self.Username = cfg.USER_GUI
+        self.Password = cfg.PASS_GUI
 
     # Action Method
     def set_username(self, username):
@@ -38,3 +47,18 @@ class LoginPage(Web_Lib):
 
         self.click_login()
         time.sleep(1)
+
+    def log_in_default(self):
+        self.open_url(self.baseUrl)
+        self.log_in_to_webgui(username=self.Username, password=self.Password)
+        time.sleep(1)
+
+    def get_alert_info(self):
+        alert_text = self.get_alert_text()
+        return (alert_text)
+
+    def check_login_success(self):
+        if self.get_alert_info() == '':
+            return True
+        else:
+            return False

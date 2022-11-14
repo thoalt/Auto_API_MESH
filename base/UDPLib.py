@@ -19,7 +19,7 @@ class UDP_Lib():
         UDP_Client.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
         return UDP_Client
 
-    def Send_To(self,UDPClient=None, byteToSend=None,
+    def Send_To(self, UDPClient=None, byteToSend=None,
                 serverAddPort=None, buffsize=None):
 
         if UDPClient is None:
@@ -36,7 +36,8 @@ class UDP_Lib():
             size = self.buffersize
         else:
             size = buffsize
-
+        print(server)
+        print(Client)
         Client.sendto(byteToSend, server)
         msgReceived = json.loads(Client.recvfrom(size)[0])
         print("\n ****************** DISCOVERY RESPONSE *****************")

@@ -7,9 +7,12 @@ from base.APILib import API_lib
 
 
 class openssesionClient(BaseClient):
-    def __init__(self):
+    def __init__(self, url=None):
         super().__init__()
-        self.url = cfg.url_Login
+        if url != None:
+            self.url = url
+        else:
+            self.url = cfg.url_Login
         self.request = API_lib()
 
 
@@ -75,6 +78,7 @@ class openssesionClient(BaseClient):
         """
 
         payload = self.Create_OpenSession_Pload(reqID)
+        print(self.url)
         response = self.request.post(url=self.url, headers=self.headersCurl, pload=payload)
 
         sesID, salt = self.Get_SessionID(response.headers)

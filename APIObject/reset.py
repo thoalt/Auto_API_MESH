@@ -1,3 +1,5 @@
+import time
+
 from assertpy import assert_that
 
 from APIObject.baseClient import BaseClient
@@ -30,10 +32,8 @@ class resetClient(BaseClient):
 
         return response
 
-    # def assert_reset(self, resBody, status, msg, action=None):
-    #     assert_that(resBody['status']).is_equal_to(status)
-    #     assert_that(resBody['message']).is_equal_to(msg)
-    #
-    #     if action is not None:
-    #         actionRes = utl.search_nodes_using_json_path(resBody, jsonPath="$..action")
-    #         assert_that(actionRes).is_equal_to(action)
+    def reset_CAP(self, cookies=None):
+        payload = self.Create_reset_Pload(macList=cfg.CAP_MAC)
+        response = self.request.post(url=self.url, headers=self.headersCurl, cookies=cookies, pload=payload)
+        time.sleep(240)
+        return response

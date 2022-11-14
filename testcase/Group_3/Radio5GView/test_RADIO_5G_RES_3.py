@@ -1,0 +1,20 @@
+import time
+import pytest
+from APIObject.wifi5GAPI import radio5GViewClient
+
+
+@pytest.mark.usefixtures("login")
+class Test_Radio5GView():
+    @pytest.fixture(autouse=True, scope="function")
+    def set_up(self):
+        self.timeOut = 610
+        self.exp = {"code": 15, "msg": "Session Timeout"}
+        self.radio5G = radio5GViewClient()
+
+
+    def test_RADIO_5G_RES_1(self):
+            time.sleep(self.timeOut)
+            resBody =self.radio5G.radio5GView(self.cookie).body
+            self.radio5G.assert_response(resBody,
+                                        self.exp['code'],
+                                        self.exp['msg'])

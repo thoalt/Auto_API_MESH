@@ -79,3 +79,30 @@ class SSH_Lib:
         else:
             raise Exception("vnptt_mad is not running")
         return self.SSHShell
+
+    def get_bitrate(self, interface):
+        bitRate = ''
+        output = str(self.SSHShell.execute_command(f'iwconfig {interface} | grep Rate').stdout)
+
+        if "Bit Rate" in output:
+            bitRate = output.split("=")[1].split(' ')[0]
+
+        return bitRate
+
+    def get_channel(self, interface):
+        channel = ''
+        output = str(self.SSHShell.execute_command(f'iwconfig {interface} | grep Channel').stdout)
+
+        if "Channel=" in output:
+            channel = output.split("=")[1].split(' ')[0]
+
+        return channel
+
+    def get_ssid_name(self, interface):
+        ssidName = ''
+        output = str(self.SSHShell.execute_command(f'iwconfig {interface} | grep ESSID').stdout)
+
+        if "ESSID:" in output:
+            ssidName = output.split("ESSID:")[1].split('"')[1]
+
+        return ssidName

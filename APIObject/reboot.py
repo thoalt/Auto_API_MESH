@@ -1,4 +1,4 @@
-from assertpy import assert_that
+from assertpy import assert_that, soft_assertions
 
 from APIObject.baseClient import BaseClient
 from Config import config as cfg
@@ -29,6 +29,13 @@ class rebootClient(BaseClient):
         response = self.request.post(url=self.url, headers=self.headersCurl, cookies=cookies, pload=payload)
 
         return response
+
+    def assert_result(self, resBody, macList):
+        resultBody = self.get_result(resBody)
+        macLst = macList.split(",")
+        with soft_assertions():
+            for idx, result in enumerate(resultBody):
+                assert_that(result['macAddr'], macLst[idx])
 
     # def assert_reboot(self, resBody, status, msg, action=None):
     #     assert_that(resBody['status']).is_equal_to(status)

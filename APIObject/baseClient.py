@@ -1,8 +1,6 @@
 import copy
-
 from assertpy import soft_assertions, assert_that
 from cerberus import Validator
-
 from Utilities import Utility as utl
 from Config import Schema_Template as scTmp
 
@@ -33,6 +31,15 @@ class BaseClient:
         pload_new['requestId'] = reqID
 
         return pload_new
+
+    def assert_val(self, expecVal, actualVal, desc=''):
+        with soft_assertions():
+            assert_that(expecVal, description=desc).is_equal_to(actualVal)
+
+    def assert_val_lst(self, expecVal_Lst, actualVal_Lst):
+        with soft_assertions():
+            for idx, item in enumerate(expecVal_Lst):
+                assert_that(expecVal_Lst[idx], description=str(item)).is_equal_to(actualVal_Lst[idx])
 
     def assert_response(self, resBody, status, msg, action=None):
         with soft_assertions():
@@ -82,3 +89,37 @@ class BaseClient:
             valid = Validator(schema=schema, require_all=require_all)
             is_valid = valid.validate(client)
             assert_that(is_valid, description=valid.errors).is_true()
+
+    def Remove_Key_In_Pload(self, dictBefore, key):
+        dictCopy = copy.deepcopy(dict(dictBefore))
+        del dictCopy[key]
+        return dictCopy
+
+    def Remove_Attribute_In_Pload(self, dictBefore: dict):
+        pload_list = []
+        keyLst = dictBefore.keys()
+        for key in keyLst:
+            if key != 'requestId':
+                newDict = self.Remove_Key_In_Pload(dictBefore, key)
+                pload_list.append(newDict)
+        return pload_list
+
+    def Remove_Attribute_Without_Action_RequestID(self, dictBefore: dict):
+        pload_list = []
+        keyLst = dictBefore.keys()
+        for key in keyLst:
+            if key not in ['requestId', 'action']:
+                newDict = self.Remove_Key_In_Pload(dictBefore, key)
+                pload_list.append(newDict)
+        return pload_list
+
+    def Remove_Request_ID_In_Pload(self, dictBefore: dict):
+        pload_list = []
+        keyLst = dictBefore.keys()
+        for key in keyLst:
+            if key == 'requestId':
+                newDict = self.Remove_Key_In_Pload(dictBefore, key)
+                pload_list.append(newDict)
+                break
+        return pload_list
+

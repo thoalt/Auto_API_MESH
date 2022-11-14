@@ -1,22 +1,29 @@
+# CAP Infomation
 IP_ADDR_CAP = "192.168.88.1"
+SERIAL = "1292922130B4454"
 CLIENT_MAC = "00:0E:C6:59:A1:A6"
 SALT = "D2...40."
 STR_ENCRYPT = "VNPT"
-SERIAL = "1292922130B4454"
-
 SERVER_BROADCAST = "255.255.255.255"
 PORT_BROADCAST = 9000
 
-SSID = "API_TEST_ThoaLT"
-PASSWORD = "1234567890"
+# WIFI INFORMATION
+SSID = "EW_0b4454"
+PASSWORD = "EW@0b4454"
 auth = "WPA2PSK"
 encrypt = "AES"
+CARD_WIFI_NAME = "Wi-Fi 8274"
 GUID = "{829d9c08-9781-498b-8677-4cecbddc1c1d}"
 
+# MAC INFORMATION
 CAP_MAC = "A4:F4:C2:0B:44:54"
+CAP_MAC_WIFI_5G = "A4:F4:C2:0B:44:56"
+CAP_MAC_WIFI_2G = "A4:F4:C2:0B:44:55"
+
 MRE1_MAC = "A4:F4:C2:0B:44:68"
 MRE2_MAC = ""
 
+# BSSID INFORMATION
 BSSIDList_MeshOnly = [
     "A4:F4:C2:0B:44:55",
     "A4:F4:C2:0B:44:56",
@@ -35,10 +42,18 @@ MIN_TIMEOUT = 2
 MAX_TIMEOUT = 30
 AVG_TIMEOUT = 10
 
+# SSH INFORMATION
 USER_SSH = "root"
 PASS_SSH = "VNPT@88Tech"
 PORT_NUM = "22"
 
+# Serial INFORMATION
+PORT_SER = "COM24"
+PORT_SER_MRE = "COM25"
+SPEED_RATE = 115200
+
+
+# HOST INFORMATION
 url_Login = f"https://{IP_ADDR_CAP}:9000/onelinklogin"
 url_Agent = f"https://{IP_ADDR_CAP}:9000/onelinkagent"
 url_Broadcast = f"https://255.255.255.255:9000"
@@ -48,6 +63,32 @@ CAP_URL = f"http://{IP_ADDR_CAP}/"
 USER_GUI = "root"
 PASS_GUI = "VNPT"
 
+# WAN TYPE
+DHCP = "IPoE Dynamic"
+STATIC = "IPoE Static"
+PPPoE = "PPPoE"
+L2TP = "L2TP"
+PPTP = "PPTP"
+
+# Wifi Interfaces Name in iwconfig
+WIFI_INT_2G = "rax0"
+WIFI_INT_5G = "ra0"
+
+WIFI_GUEST_INT_2G = "rax1"
+WIFI_GUEST_INT_5G = "ra2"
+
+# Repeater Network
+REPEAT_2G_OPEN = {
+    "SSID" : "1111_AP_Wireless_Test_2G",
+    "PASS" : "Open"
+}
+
+REPEAT_5G_OPEN = {
+    "SSID" : "1111_AP_Wireless_Test",
+    "PASS" : "1234567890"
+}
+##
+#
 req_discovery = {
     "action": "discovery",
     "clientMac": "<clientMac>",
@@ -108,7 +149,8 @@ req_radio5GEdit = {
     "bandwidth": "<5GBandwidth>"
 }
 
-req_deviceInfoView = {
+req_deviceInfoView = \
+    {
     "action": "deviceInfoView",
     "requestId": "<requestId>"
 }
@@ -120,7 +162,7 @@ req_networkinfoView = {
 
 req_passwordEdit = {
     "action": "passwordEdit",
-    "username": "<username>",
+    "username": "root",
     "password": "<password>",
     "requestId": "<requestId>"
 }
@@ -157,7 +199,7 @@ req_addNewNode = {
 req_syncONTConfig = {
     "action": "syncONTConfig",
     "requestId": "<requestId>",
-    "enableSync": False
+    "enableSync": True
 }
 
 req_lanEdit = {
@@ -211,7 +253,7 @@ req_ssid2GEdit = {
     "action": "ssid2.4GEdit",
     "ssidIndex": "<ssidIndex>",
     "enable": "<enable>",
-    "ssid": "<ssid>",
+    "ssidName": "<ssid>",
     "authenMode": "<authenMode>",
     "password": "<password>",
     "requestId": "<requestId>"
@@ -221,7 +263,7 @@ req_ssid5GEdit = {
     "action": "ssid5GEdit",
     "ssidIndex": "<ssidIndex>",
     "enable": "<enable>",
-    "ssid": "<ssid>",
+    "ssidName": "<ssid>",
     "authenMode": "<authenMode>",
     "password": "<password>",
     "requestId": "<requestId>"
@@ -235,22 +277,30 @@ req_portforwardView = {
 req_portforwardCreate = {
     "action": "portforwardCreate",
     "ruleIndex": "<ruleIndex>",
-    "wanName": "<wanName>",
+    "wanIndex": "<wanIndex>",
     "protocol": "<protocol>",
     "startRemotePort": "<startRemotePort>",
     "ipAddr": "<ipAddr>",
     "startLocalPort": "<startLocalPort>",
-    "requestId": "<requestId>"
+    "requestId": "<requestId>",
+    "serviceName": "<serviceName>"
 }
 
 req_portforwardEdit = {
     "action": "portforwardEdit",
     "ruleIndex": "<ruleIndex>",
-    "wanName": "<wanName>",
+    "wanIndex": "<wanIndex>",
     "protocol": "<protocol>",
     "startRemotePort": "<startRemotePort>",
     "ipAddr": "<ipAddr>",
     "startLocalPort": "<startLocalPort>",
+    "requestId": "<requestId>",
+    "serviceName": "<serviceName>"
+}
+
+req_portforwardRemove = {
+    "action": "portforwardRemove",
+    "ruleIndex": "<ruleIndex>",
     "requestId": "<requestId>"
 }
 
@@ -294,7 +344,9 @@ req_meshCreate = {
     "action": "meshCreate",
     "requestId": "<requestId>",
     "meshMode": 0,
-    "addNode": True
+    "ssidName": "<requestId>",
+    "password": "<password>",
+    "addNode": False
 }
 
 req_meshChange = {

@@ -7,9 +7,13 @@ from base.APILib import API_lib
 
 
 class LoginClient(BaseClient):
-    def __init__(self):
+    def __init__(self, url=None):
         super().__init__()
-        self.url = cfg.url_Login
+        if url != None:
+            self.url = url
+        else:
+            self.url = cfg.url_Login
+
         self.request = API_lib()
 
     def login(self, cookies):

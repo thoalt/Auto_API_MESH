@@ -1,3 +1,4 @@
+import copy
 import random
 import time
 import string
@@ -6,7 +7,7 @@ from jsonpath_ng import parse
 from passlib import hash
 from sshaolin.client import SSHClient
 from Config import config as cfg
-
+from collections import defaultdict
 
 def md5_encrypt(password, salt):
     """
@@ -42,3 +43,16 @@ def search_nodes_using_json_path(jsonVal, jsonPath):
     jsonpath_expr = parse(jsonPath)
     for match in jsonpath_expr.find(jsonVal):
         return match.value
+
+class MapDict(defaultdict):
+    def __init__(self):
+        super(MapDict, self).__init__(MapDict)
+
+    def __getattr__(self, key):
+        try:
+            return self[key]
+        except KeyError:
+            raise AttributeError(key)
+
+    def __setattr__(self, key, value):
+        self[key] = value

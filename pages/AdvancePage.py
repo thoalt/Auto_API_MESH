@@ -43,6 +43,12 @@ class AdvancePage(Web_Lib):
     def click_Route(self):
         self.wait_and_click_element(self.lnkRoute_xpath)
 
+    def click_delete_ddns0(self):
+        self.wait_and_click_element(xpath="//img[@onclick='DeleteRule(0)']")
+        time.sleep(1)
+        self.accept_alert()
+        time.sleep(2)
+
     def navigation_to_home_wifi(self):
         self.click_Advanced()
         time.sleep(1)
@@ -449,6 +455,9 @@ class AdvPortForwardPage(AdvancePage):
     txtInternalIP_xpath = "//input[@id='add_internal_ip']"
     btnAddRule_xpath = "//input[@onclick='btnApply()']"
 
+    btnDelRule_xpath = "//img[@title='Delete rule' and @onclick='DeleteService(%s)']"
+    btnEditRule_xpath = "//img[@title='Edit rule' and @onclick='EditService(%s)']"
+
     def set_service_name(self, serviceName):
         self.wait_and_set_text_element_with_delete(self.txtServiceName_xpath, serviceName)
 
@@ -499,6 +508,35 @@ class AdvPortForwardPage(AdvancePage):
         if clickApply:
             self.click_btn_add_rule()
 
+
+    def edit_port_forward(self, ruleID, protocol=None, exZone=None, exPort=None,
+                                inZone=None, inPort=None, inIP=None, clickApply=True):
+
+        self.wait_and_click_element(xpath=(self.btnEditRule_xpath %str(ruleID)))
+        if protocol is not None:
+            self.wait_and_select_item("//select[@id='edit_protocol']", protocol)
+
+        if exZone is not None:
+            self.wait_and_select_item("//select[@id='edit_external_zone']", exZone)
+
+        if exPort is not None:
+            self.wait_and_set_text_element_with_delete("//input[@id='edit_external_port']", exPort)
+
+        if inZone is not None:
+            self.wait_and_select_item("//select[@id='edit_internal_zone']", inZone)
+
+        if inPort is not None:
+            self.wait_and_set_text_element_with_delete("//input[@id='edit_internal_port']", inPort)
+
+        if inIP is not None:
+            self.wait_and_set_text_element_with_delete("//input[@id='edit_internal_ip']", inIP)
+
+        if clickApply:
+            self.wait_and_click_element("//input[@title='Apply Edit']")
+
+    def delete_port_forward(self, portID):
+        self.wait_and_click_element(xpath=(self.btnDelRule_xpath %str(portID)))
+        self.accept_alert()
 
     def get_alert_info(self):
         alert_text = self.get_alert_text()
