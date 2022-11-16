@@ -88,13 +88,15 @@ def login(request):
     modeMesh = serialClt.Get_Mode_Mesh()
     SSIDName = serialClt.Get_SSID_Name(cfg.WIFI_INT_5G)
     passGUI = serialClt.Get_Pass_GUI()
+    ipAddr = serialClt.Get_IP_Address()
 
     if modeMesh == "FACTORY":
         cookie = ClientSes.Open_Sesion_And_Get_Cookie()
         LoginClt.login(cookie)
         meshCreateClt.Create_Mesh_Network_Default(cookie)
 
-    elif (modeMesh != "FACTORY") and ((SSIDName == cfg.SSID) and (passGUI == passGuiDefault)):
+    elif (modeMesh != "FACTORY") \
+            and ((SSIDName == cfg.SSID) and (passGUI == passGuiDefault) and (ipAddr == cfg.IP_ADDR_CAP)):
         cookie = ClientSes.Open_Sesion_And_Get_Cookie()
         LoginClt.login(cookie)
 

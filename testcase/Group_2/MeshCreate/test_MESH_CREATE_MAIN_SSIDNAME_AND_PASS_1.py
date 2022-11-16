@@ -38,22 +38,22 @@ class Test_Mesh_Create():
         self.mode = MESH_MODE.ROUTER
 
         self.ssidNameLst = [
-                            # "e", "5", "%", "t!", "gh", "3#",
-                            # "test@hec", " wireless@hec",
+                            "e", "5", "%", "t!", "gh", "3#",
+                            "test@hec", " wireless@hec",
                             "wireless@hec ", "wireless@ hec", "wireless@  hec",
                             "wireless@ test hec",
                             "uidwvgNleD1234567890`~!@#$%^*()_",
                             "uidwvgNleD1234567890-=+{[]}|;:<",
                             "uidwvgNleD1234567890.>?/txblaudp"]
         self.passLst = [
-                        # "test@hec",
-                        # " wireless@hec",
-                        # "wireless@hec ",
-                        # "wireless@ hec",
-                        # "wireless@  hec",
-                        # "wireless@ test hec",
-                        # "uidwvgNleD1234567890`~!@#$%^*()_uidwvgNleD1234567890`~!@#$%^*()",
-                        # "uidwvgNleD1234567890-=+{[]}|;:<,uidwvgNleD1234567890-=+{[]}|;:<",
+                        "test@hec",
+                        " wireless@hec",
+                        "wireless@hec ",
+                        "wireless@ hec",
+                        "wireless@  hec",
+                        "wireless@ test hec",
+                        "uidwvgNleD1234567890`~!@#$%^*()_uidwvgNleD1234567890`~!@#$%^*()",
+                        "uidwvgNleD1234567890-=+{[]}|;:<,uidwvgNleD1234567890-=+{[]}|;:<",
                         "uidwvgNleD1234567890.>?/txblaudpuidwvgNleD1234567890.>?/txblaud",
                         "test@hec",
                         " wireless@hec",
@@ -66,7 +66,7 @@ class Test_Mesh_Create():
         if modeMesh != "FACTORY":
             self.serialClt.Reset_Factory()
 
-    @pytest.mark.skip(reason="This is Manual Testcase")
+    # @pytest.mark.skip(reason="This is Manual Testcase")
     def test_MESH_CREATE_RES_1(self):
         numTC = len(self.ssidNameLst)
         ploadLst = []

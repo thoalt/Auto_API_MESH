@@ -114,6 +114,7 @@ class Serial_Lib:
                 break
 
         ipAddr = ipAddLine.strip().split(" ")[1].split(":")[1]
+        print(ipAddr)
         return ipAddr
 
     def Reset_Factory(self):
@@ -121,6 +122,6 @@ class Serial_Lib:
         self.Run_Command("firstboot -y; reboot\n")
         time.sleep(240)
 # print(f"{str(idx)}: {line.decode('utf8')}")
-# classLib = Serial_Lib()
-# classLib.Get_Pass_GUI()
+classLib = Serial_Lib()
+classLib.Get_IP_Address()
 

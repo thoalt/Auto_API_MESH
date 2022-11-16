@@ -8,11 +8,12 @@ import pycurl
 from passlib import hash
 import requests
 
-IP_ADDR_CAP = "192.168.88.1"
+IP_ADDR_CAP = "1.1.1.1"
 CLIENT_MAC = "00:0E:C6:59:A1:A6"
 SALT = "D2...40."
 STR_ENCRYPT = "VNPT"
-SERIAL = "1292922130B4454"
+# SERIAL = "1292922130B4454"
+SERIAL = "1280909164648DA"
 headersCurl = ["Content-Type: application/json", "Accept:application/json"]
 
 FW_Name = "EW12_EW12ST000T0004.tar.gz"
@@ -266,11 +267,10 @@ if __name__ == '__main__':
     # resPonse3 = post(url=url_Agent, headers=headersCurl, cookies=cookie, pload=req_SSIDView)
 
     request = {
-    "action": "meshCreate",
-    "requestId": 8038,
-    "meshMode": 0,
-    "ssidName": "`",
-    "password": "1234567890_160",
-    "addNode": False
+    "action": "lanEdit",
+    "ipAddr": "192.168.88.1",
+    "subnetMask": "255.255.255.0",
+    "requestId": 8229
 }
+
     resPonse4 = post(url=url_Agent, headers=headersCurl, cookies=cookie, pload=request)
