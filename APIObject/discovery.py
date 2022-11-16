@@ -40,7 +40,7 @@ class discoveryClient(BaseClient):
         else:
             pload['requestId'] = reqID
 
-        print("\n ****************** DISCOVERY PAYLOAD *****************")
+        print("\n ****************** DISCOVERY REQUEST *****************")
         print(json.dumps(pload, indent=4))
         return pload
 

@@ -18,17 +18,6 @@ class Serial_Lib:
         else:
             self.bitRate = bitRate
 
-        # try:
-        #     self.con = serial.Serial(
-        #         port=self.port,
-        #         baudrate=self.bitRate,
-        #         bytesize=8,
-        #         timeout=5,
-        #         stopbits=serial.STOPBITS_ONE
-        #     )
-        # except:
-        #     pass
-
         self.con = serial.Serial(
             port=self.port,
             baudrate=self.bitRate,
@@ -87,10 +76,10 @@ class Serial_Lib:
         output = self.Get_Ouput_From_Command(cmd, 5)
 
         for idx, line in enumerate(output):
-            print(line.decode('utf8'))
+            #print(line.decode('utf8'))
             if cmd in line.decode('utf8'):
                 passGUILine = output[idx + 1].decode('utf8')
-                print(passGUILine)
+                #print(passGUILine)
                 break
         if "root" in passGUILine:
             passGUI = passGUILine.split("root")[1][1:]
@@ -118,7 +107,7 @@ class Serial_Lib:
         ipAddr = ""
         cmd = "ifconfig br-lan | grep 'inet addr'"
         output = self.Get_Ouput_From_Command(cmd, 5)
-        print(output)
+        #print(output)
         for idx, line in enumerate(output):
             if "inet addr:" in line.decode('utf8'):
                 ipAddLine = line.decode('utf8')

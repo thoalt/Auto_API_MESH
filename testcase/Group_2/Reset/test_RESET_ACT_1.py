@@ -23,3 +23,5 @@ class Test_Reset():
                                       self.exp['code'],
                                       self.exp['msg'],
                                       self.exp['action'])
+
+        time.sleep(240)

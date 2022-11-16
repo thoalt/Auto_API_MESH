@@ -22,8 +22,8 @@ class LogoutClient(BaseClient):
             payload = self.Create_Logout_Pload()
         else:
             payload = pload
-        print("**********Payload *****")
-        print(payload)
+        #print("**********Payload *****")
+        #print(payload)
 
         response = self.request.post(url=self.url, headers=self.headersCurl, cookies=cookies, pload=payload)
 

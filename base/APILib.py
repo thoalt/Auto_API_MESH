@@ -32,7 +32,7 @@ class API_lib:
             c.setopt(c.COOKIE, cookies)
 
         if pload is not None:
-            print("\n***************** PAYLOAD **********")
+            print("\n***************** REQUEST **********")
             print(json.dumps(pload, indent=4))
             c.setopt(c.POSTFIELDS, json.dumps(pload))
 
@@ -47,8 +47,8 @@ class API_lib:
         c.close()
 
         resHeaders = rawHeaders.getvalue().decode('UTF-8')
-        print("***************** HEADER **********")
-        print(resHeaders)
+        # print("***************** HEADER **********")
+        # print(resHeaders)
         resBody = rawBody.getvalue().decode('UTF-8')
         # print("***************** RESPONSE BEFORE LOAD **********")
         # print(resBody)
