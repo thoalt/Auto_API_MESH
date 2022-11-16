@@ -1,7 +1,7 @@
 import time
 import pytest
 from APIObject.lanAPI import LanEditClient
-from base.SerialLib import Serial_Lib
+#from base.SerialLib import Serial_Lib
 
 @pytest.mark.usefixtures("login")
 class Test_Lan_Edit():
