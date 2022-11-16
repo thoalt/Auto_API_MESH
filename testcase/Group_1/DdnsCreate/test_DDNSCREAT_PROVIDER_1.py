@@ -1,6 +1,6 @@
 import time
 import pytest
-from APIObject.serviceAPI import ddnsCreateEditClient
+from APIObject.serviceAPI import ddnsCreateEditClient, ddnsRemoveClient
 
 
 @pytest.mark.usefixtures("login")
@@ -13,9 +13,11 @@ class Test_DdnsCreate():
         #"dyndns.org", "changeip.com", "zoneedit.com", "free.editdns.net", "no-ip.com",
         #"dnsmax.com", "thatip.com", "he.ne", "dnsdynamic.org", "dnsexit.com", "ovh.com", "namecheap.com"
 
+        self.ddnsRevClt = ddnsRemoveClient()
+        self.ddnsRevClt.ddns_remove_all(self.cookie)
 
         self.ddnsCreateClt = ddnsCreateEditClient()
-        self.idx = 3
+        self.idx = 0
         self.serProvider = "dyndns.org"
         self.hostname = "test.com.vn"
         self.username = "thoalt"

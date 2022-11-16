@@ -147,6 +147,18 @@ class ddnsRemoveClient(BaseClient):
         response = self.request.post(url=self.url, headers=self.headersCurl, cookies=cookies, pload=payload)
         return response
 
+    def ddns_remove_all(self, cookies=None):
+        viewClt = ddnsViewClient()
+        resBody = viewClt.ddnsView(cookies).body
+        ddnsResult = viewClt.get_result(resBody)
+
+        for idx, item in enumerate(ddnsResult):
+            ddnsIdx = item['index']
+            pload = self.Create_ddnsRemove_Pload(index=ddnsIdx)
+            response = self.ddnsRemove(cookies=cookies, pload=pload)
+            time.sleep(15)
+
+
 
 class portforwardViewClient(BaseClient):
     def __init__(self):

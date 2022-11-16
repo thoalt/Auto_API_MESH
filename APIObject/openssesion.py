@@ -78,7 +78,7 @@ class openssesionClient(BaseClient):
         """
 
         payload = self.Create_OpenSession_Pload(reqID)
-        print(self.url)
+        # print(self.url)
         response = self.request.post(url=self.url, headers=self.headersCurl, pload=payload)
 
         sesID, salt = self.Get_SessionID(response.headers)
@@ -106,8 +106,8 @@ class openssesionClient(BaseClient):
         else:
             authenStr = authen
 
-        print("************* AUTHEN *************")
-        print(authenStr)
+        # print("************* AUTHEN *************")
+        # print(authenStr)
         md5 = utl.md5_encrypt(authenStr, salt)
         return md5
 

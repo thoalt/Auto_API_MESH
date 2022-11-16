@@ -1,6 +1,6 @@
 import time
 import pytest
-from APIObject.serviceAPI import ddnsCreateEditClient
+from APIObject.serviceAPI import ddnsCreateEditClient, ddnsRemoveClient
 
 
 @pytest.mark.usefixtures("login")
@@ -9,6 +9,8 @@ class Test_DdnsEdit():
     def set_up(self):
         self.timeOut = 2
         self.exp = {"code": 11, "msg": "Verify Fail", "action": "ddnsCreat"}
+        self.ddnsRevClt = ddnsRemoveClient()
+        self.ddnsRevClt.ddns_remove_all(self.cookie)
 
         self.ddnsCreateClt = ddnsCreateEditClient()
         self.idx = 0
