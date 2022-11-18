@@ -7,7 +7,7 @@ class Test_ssid24GView():
     @pytest.fixture(autouse=True, scope="function")
     def set_up(self):
         self.timeOut = 5
-        self.exp = {"code":10 , "msg": "Miss Atrribute"}
+        self.exp = {"code":10 , "msg": "Miss Attribute"}
         self.ssid24GViewClt = ssid24GViewClient()
         pload = self.ssid24GViewClt.Create_ssid24GView_Pload()
         self.data = self.ssid24GViewClt.Remove_Attribute_In_Pload(pload)

@@ -71,9 +71,9 @@ class Test_radio24G_Edit():
 
             # Getting Channel from driver
             channel = self.session.get_channel(cfg.WIFI_INT_2G)
-            channelDriver_actual_lst.append(channel)
             if item == 'auto':
                 channel = 'auto'
+
             channelDriver_actual_lst.append(channel)
         # Verify the result Get from API
         self.radio2GViewClt.assert_result_lst(resBody_lst,

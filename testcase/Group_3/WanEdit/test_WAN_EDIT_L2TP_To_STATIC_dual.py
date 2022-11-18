@@ -80,5 +80,4 @@ class Test_Wan_Create():
                                            IPV4Net=self.ipNetmask,
                                            IPV4GW=self.GW,
                                            IPV6Addr=self.ipv6Addr,
-                                           IPV6GW=self.ipv6GW,
-                                           ipv6Type=self.ipv6Type)
+                                           IPV6GW=self.ipv6GW)

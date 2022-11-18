@@ -16,7 +16,7 @@ class Test_Wan_Create():
         self.wanRemoveClt = WanRemoveClient()
         self.wanRemoveClt.Remove_All_WAN(cookies=self.cookie)
 
-        self.wanIdx = 1
+        self.wanIdx = 3
         self.wanType = WAN_TYPE().STATIC
         self.vlanID = 10
         self.IPVer = IP_VER().IPv6
@@ -24,8 +24,22 @@ class Test_Wan_Create():
         self.ipv6GW = "fe80:0:0:0:200:4cff:fe43:1"
         self.ipv6Type = "Auto"
         self.defaultRoute = True
-
         self.wp = SettingWANPage(self.driver)
+
+        self.wanEditClt = WanCreateEditClient()
+        self.wanEditClt.Create_DHCP_Dual(cookies=self.cookie,
+                                         index=1,
+                                         vlanId=99)
+
+        time.sleep(30)
+        self.wp.refresh()
+        self.wanEditClt.Create_DHCP_IPv4(cookies=self.cookie,
+                                         index=2,
+                                         vlanId=999)
+        time.sleep(30)
+        self.wp.refresh()
+        self.wanViewClt.wanViewConfig(self.cookie)
+
 
     def test_WAN_CREATE_RES_1(self):
         time.sleep(self.timeOut)
@@ -48,15 +62,15 @@ class Test_Wan_Create():
                                         self.exp['msg'])
         time.sleep(30)
         resBody = self.wanViewClt.wanViewConfig(self.cookie).body
-        self.wanViewClt.assert_result_WAN1(resBody,
-                                           self.wanType,
-                                           self.vlanID,
-                                           self.IPVer,
-                                           IPV6Addr=self.ipv6Addr,
-                                           IPV6GW=self.ipv6GW)
+        self.wanViewClt.assert_result_WAN3(resBody,
+                                      self.wanType,
+                                      self.vlanID,
+                                      self.IPVer,
+                                      IPV6Addr=self.ipv6Addr,
+                                      IPV6GW=self.ipv6GW)
 
         # GUI Setting
-        self.wp.navigate_to_WAN_1_setting_page()
+        self.wp.navigate_to_WAN_3_setting_page()
         wanTypeGUI = self.wanViewClt.convert_wantype_API_to_GUI(self.wanType)
         self.wanViewClt.assert_val(str(wanTypeGUI), str(self.wp.get_service()))
         self.wanViewClt.assert_val(int(self.vlanID), int(self.wp.get_VLAN_ID()))

@@ -16,7 +16,7 @@ class Test_Wan_Create():
         self.wanRemoveClt = WanRemoveClient()
         self.wanRemoveClt.Remove_All_WAN(cookies=self.cookie)
 
-        self.wanIdx = 2
+        self.wanIdx = 1
         self.wanType = WAN_TYPE().L2TP
         self.vlanID = 10
 

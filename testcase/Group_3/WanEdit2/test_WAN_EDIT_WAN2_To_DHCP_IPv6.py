@@ -2,8 +2,10 @@ import time
 import pytest
 from APIObject.wanAPI import WanCreateEditClient, WAN_TYPE, IP_VER
 from APIObject.wanAPI import WanRemoveClient, WanViewConfigClient
+from pages.SettingWANPage import SettingWANPage
 
-@pytest.mark.usefixtures("login")
+
+@pytest.mark.usefixtures("login", "login_CAP_GUI")
 class Test_Wan_Create():
     @pytest.fixture(autouse=True, scope="function")
     def set_up(self):
@@ -11,8 +13,8 @@ class Test_Wan_Create():
         self.exp = {"code": 0, "msg": "Success"}
         self.idx = 1
         self.vlanID = 10
-        self.wanTypeAfter = WAN_TYPE().STATIC
-        self.ipVerAfter = IP_VER().DUAL
+        self.wanTypeAfter = WAN_TYPE().DHCP
+        self.ipVerAfter = IP_VER().IPv6
         self.vlanIDAfter = 100
 
         self.userName_PPPoE = "User_PPPoE_Test"
@@ -39,32 +41,32 @@ class Test_Wan_Create():
         self.wanRemoveClt.Remove_All_WAN(self.cookie)
 
         self.wanEditClt = WanCreateEditClient()
-        self.wanEditClt.Create_PPPoE_DUAL(cookies=self.cookie,
-                                         index=self.idx,
-                                         vlanID=self.vlanID,
-                                         userName=self.userName_PPPoE,
-                                         passW=self.passW_PPPoE,
-                                         dftRoute=self.defaultRoute)
-
         self.wanViewClt = WanViewConfigClient()
+
+        self.wp = SettingWANPage(self.driver)
+        self.wanEditClt.Create_DHCP_Dual(cookies=self.cookie,
+                                         index=1,
+                                         vlanId=99)
+
+        time.sleep(30)
+        self.wp.refresh()
+        self.wanEditClt.Create_DHCP_IPv4(cookies=self.cookie,
+                                         index=2,
+                                         vlanId=999)
+        time.sleep(30)
+        self.wp.refresh()
+
         self.wanViewClt.wanViewConfig(self.cookie)
 
     def test_WAN_EDIT_RES_1(self):
         time.sleep(self.timeOut)
         ploadCom = self.wanEditClt.Create_WanEdit_Common_Pload(
-            wanIdx=self.idx,
+            wanIdx=2,
             wanType=self.wanTypeAfter
         )
-        pload = self.wanEditClt.Create_WanCreate_Edit_WAN_Dual_pload(
+        pload = self.wanEditClt.Create_WanCreate_Edit_DHCP_pload(
             pload=ploadCom,
-            vlanID=self.vlanIDAfter,
-            IPVer=self.ipVerAfter,
-            IPV4Addr=self.ipAddr,
-            IPV4Net=self.ipNetmask,
-            IPV4GW=self.GW,
-            IPV6Addr=self.ipv6Addr,
-            IPV6GW=self.ipv6GW,
-            ipv6Type=self.ipv6Type
+            IPVer=self.ipVerAfter
         )
 
         resBody = self.wanEditClt.wanCreateEdit(self.cookie, pload=pload).body
@@ -73,12 +75,14 @@ class Test_Wan_Create():
                                         self.exp['msg'])
         time.sleep(30)
         resBody = self.wanViewClt.wanViewConfig(self.cookie).body
-        self.wanViewClt.assert_result_WAN1(resBody,
-                                           self.wanTypeAfter,
-                                           self.vlanIDAfter,
-                                           self.ipVerAfter,
-                                           IPV4Addr=self.ipAddr,
-                                           IPV4Net=self.ipNetmask,
-                                           IPV4GW=self.GW,
-                                           IPV6Addr=self.ipv6Addr,
-                                           IPV6GW=self.ipv6GW)
+        self.wanViewClt.assert_result_WAN2(resBody,
+                                      self.wanTypeAfter,
+                                      self.ipVerAfter)
+
+        # Get Infor in GUI
+        self.wp.navigate_to_WAN_2_setting_page()
+        wanTypeGUI = self.wanViewClt.convert_wantype_API_to_GUI(self.wanTypeAfter)
+        ipVerGui = self.wanViewClt.conver_IPVer_API_To_GUI(self.ipVerAfter)
+
+        self.wanViewClt.assert_val(str(wanTypeGUI), str(self.wp.get_service()))
+        self.wanViewClt.assert_val(ipVerGui, self.wp.get_IPVersion())

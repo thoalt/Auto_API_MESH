@@ -2,8 +2,10 @@ import time
 import pytest
 from APIObject.wanAPI import WanCreateEditClient, WAN_TYPE, IP_VER
 from APIObject.wanAPI import WanRemoveClient, WanViewConfigClient
+from pages.SettingWANPage import SettingWANPage
 
-@pytest.mark.usefixtures("login")
+
+@pytest.mark.usefixtures("login", "login_CAP_GUI")
 class Test_Wan_Create():
     @pytest.fixture(autouse=True, scope="function")
     def set_up(self):
@@ -12,7 +14,7 @@ class Test_Wan_Create():
         self.idx = 1
         self.vlanID = 10
         self.wanTypeAfter = WAN_TYPE().STATIC
-        self.ipVerAfter = IP_VER().DUAL
+        self.ipVerAfter = IP_VER().IPv6
         self.vlanIDAfter = 100
 
         self.userName_PPPoE = "User_PPPoE_Test"
@@ -39,32 +41,23 @@ class Test_Wan_Create():
         self.wanRemoveClt.Remove_All_WAN(self.cookie)
 
         self.wanEditClt = WanCreateEditClient()
-        self.wanEditClt.Create_PPPoE_DUAL(cookies=self.cookie,
-                                         index=self.idx,
-                                         vlanID=self.vlanID,
-                                         userName=self.userName_PPPoE,
-                                         passW=self.passW_PPPoE,
-                                         dftRoute=self.defaultRoute)
-
         self.wanViewClt = WanViewConfigClient()
         self.wanViewClt.wanViewConfig(self.cookie)
+        self.wp = SettingWANPage(self.driver)
 
     def test_WAN_EDIT_RES_1(self):
         time.sleep(self.timeOut)
         ploadCom = self.wanEditClt.Create_WanEdit_Common_Pload(
-            wanIdx=self.idx,
+            wanIdx=0,
             wanType=self.wanTypeAfter
         )
         pload = self.wanEditClt.Create_WanCreate_Edit_WAN_Dual_pload(
             pload=ploadCom,
-            vlanID=self.vlanIDAfter,
             IPVer=self.ipVerAfter,
-            IPV4Addr=self.ipAddr,
-            IPV4Net=self.ipNetmask,
-            IPV4GW=self.GW,
             IPV6Addr=self.ipv6Addr,
             IPV6GW=self.ipv6GW,
-            ipv6Type=self.ipv6Type
+            ipv6Type=self.ipv6Type,
+            dftRoute=self.defaultRoute
         )
 
         resBody = self.wanEditClt.wanCreateEdit(self.cookie, pload=pload).body
@@ -73,12 +66,18 @@ class Test_Wan_Create():
                                         self.exp['msg'])
         time.sleep(30)
         resBody = self.wanViewClt.wanViewConfig(self.cookie).body
-        self.wanViewClt.assert_result_WAN1(resBody,
-                                           self.wanTypeAfter,
-                                           self.vlanIDAfter,
-                                           self.ipVerAfter,
-                                           IPV4Addr=self.ipAddr,
-                                           IPV4Net=self.ipNetmask,
-                                           IPV4GW=self.GW,
-                                           IPV6Addr=self.ipv6Addr,
-                                           IPV6GW=self.ipv6GW)
+        self.wanViewClt.assert_result_WAN0(resBody,
+                                      wanType= self.wanTypeAfter,
+                                      ipVer= self.ipVerAfter,
+                                      IPV6Addr=self.ipv6Addr,
+                                      IPV6GW=self.ipv6GW)
+        # Get Infor in GUI
+        self.wp.navigate_to_WAN_setting_page()
+        wanTypeGUI = self.wanViewClt.convert_wantype_API_to_GUI(self.wanTypeAfter)
+        ipVerGui = self.wanViewClt.conver_IPVer_API_To_GUI(self.ipVerAfter)
+
+        self.wanViewClt.assert_val(str(wanTypeGUI), str(self.wp.get_service()))
+        self.wanViewClt.assert_val(ipVerGui, self.wp.get_IPVersion())
+
+        self.wanViewClt.assert_val(self.ipv6Addr, self.wp.get_IPV6_Addr())
+        self.wanViewClt.assert_val(self.ipv6GW, self.wp.get_IPV6_Gateway())

@@ -15,7 +15,7 @@ class Test_Wan_Create():
         self.wanViewClt = WanViewConfigClient()
         self.wanRemoveClt = WanRemoveClient()
 
-        self.wanIdx = 2
+        self.wanIdx = 1
         self.wanType = WAN_TYPE().L2TP
         self.vlanID = 10
 

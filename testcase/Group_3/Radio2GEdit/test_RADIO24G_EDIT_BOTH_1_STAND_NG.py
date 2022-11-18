@@ -106,6 +106,8 @@ class Test_radio24G_Edit():
                 bitrate = self.session.get_bitrate(cfg.WIFI_INT_2G)
                 bandwithDriver = self.client2G.Convert_Bitrate_To_Bandwith(standard=self.standard, bitrate=bitrate)
                 channelDriver = self.session.get_channel(cfg.WIFI_INT_2G)
+                if channel == 'auto':
+                    channelDriver = 'auto'
 
                 bandwithDriver_actual_lst.append(bandwithDriver)
                 channelDriver_actula_lst.append(channelDriver)

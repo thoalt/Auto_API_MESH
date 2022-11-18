@@ -8,7 +8,7 @@ import pycurl
 from passlib import hash
 import requests
 
-IP_ADDR_CAP = "1.1.1.1"
+IP_ADDR_CAP = "192.168.88.1"
 CLIENT_MAC = "00:0E:C6:59:A1:A6"
 SALT = "D2...40."
 STR_ENCRYPT = "VNPT"
@@ -267,10 +267,10 @@ if __name__ == '__main__':
     # resPonse3 = post(url=url_Agent, headers=headersCurl, cookies=cookie, pload=req_SSIDView)
 
     request = {
-    "action": "lanEdit",
-    "ipAddr": "192.168.88.1",
-    "subnetMask": "255.255.255.0",
-    "requestId": 8229
+    "action": "radio2.4GEdit",
+    "requestId": 3149,
+    "channel": "1",
+    "bandwidth": "20MHz"
 }
 
     resPonse4 = post(url=url_Agent, headers=headersCurl, cookies=cookie, pload=request)
