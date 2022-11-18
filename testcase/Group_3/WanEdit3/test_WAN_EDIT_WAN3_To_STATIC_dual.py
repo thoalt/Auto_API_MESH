@@ -69,6 +69,7 @@ class Test_Wan_Create():
         )
         pload = self.wanEditClt.Create_WanCreate_Edit_WAN_Dual_pload(
             pload=ploadCom,
+            vlanID=self.vlanIDAfter,
             IPVer=self.ipVerAfter,
             IPV4Addr=self.ipAddr,
             IPV4Net=self.ipNetmask,
@@ -87,6 +88,7 @@ class Test_Wan_Create():
         resBody = self.wanViewClt.wanViewConfig(self.cookie).body
         self.wanViewClt.assert_result_WAN3(resBody,
                                       self.wanTypeAfter,
+                                      self.vlanIDAfter,
                                       self.ipVerAfter,
                                       IPV4Addr=self.ipAddr,
                                       IPV4Net=self.ipNetmask,

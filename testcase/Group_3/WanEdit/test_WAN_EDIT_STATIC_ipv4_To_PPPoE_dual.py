@@ -75,4 +75,5 @@ class Test_Wan_Create():
                                            self.vlanIDAfter,
                                            self.ipVerAfter,
                                            userName=self.userName_PPPoE,
-                                           passW=self.passW_PPPoE)
+                                           passW=self.passW_PPPoE,
+                                           dftRoute=self.defaultRoute)

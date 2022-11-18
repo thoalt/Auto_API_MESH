@@ -65,6 +65,7 @@ class Test_Wan_Create():
         )
         pload = self.wanEditClt.Create_WanCreate_Edit_WAN_PPPoE(
             pload=ploadCom,
+            vlanID=self.vlanIDAfter,
             IPVer=self.ipVerAfter,
             userName=self.userName_PPPoE,
             passW=self.passW_PPPoE
@@ -78,6 +79,7 @@ class Test_Wan_Create():
         resBody = self.wanViewClt.wanViewConfig(self.cookie).body
         self.wanViewClt.assert_result_WAN2(resBody,
                                       self.wanTypeAfter,
+                                      self.vlanIDAfter,
                                       self.ipVerAfter,
                                       userName=self.userName_PPPoE,
                                       passW=self.passW_PPPoE)

@@ -71,6 +71,7 @@ class Test_Wan_Create():
         )
         pload = self.wanEditClt.Create_WanCreate_Edit_DHCP_pload(
             pload=ploadCom,
+            vlanID=self.vlanIDAfter,
             IPVer=self.ipVerAfter
         )
 
@@ -82,6 +83,7 @@ class Test_Wan_Create():
         resBody = self.wanViewClt.wanViewConfig(self.cookie).body
         self.wanViewClt.assert_result_WAN3(resBody,
                                       self.wanTypeAfter,
+                                      self.vlanIDAfter,
                                       self.ipVerAfter)
 
         # Get Infor in GUI
@@ -91,3 +93,4 @@ class Test_Wan_Create():
 
         self.wanViewClt.assert_val(str(wanTypeGUI), str(self.wp.get_service()))
         self.wanViewClt.assert_val(ipVerGui, self.wp.get_IPVersion())
+        self.wanViewClt.assert_val(self.vlanIDAfter, self.wp.get_VLAN_ID())
