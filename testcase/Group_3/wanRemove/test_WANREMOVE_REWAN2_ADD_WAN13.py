@@ -33,7 +33,7 @@ class Test_Wanview():
                                                         vlanId=self.vlanID).body
 
             self.wanCreateClt.assert_response(resBody,
-                                              "11",
+                                              11,
                                               "Verify Fail")
             time.sleep(5)
 
