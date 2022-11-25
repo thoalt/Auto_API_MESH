@@ -8,13 +8,13 @@ import pycurl
 from passlib import hash
 import requests
 import Config.config as cfg
-# IP_ADDR_CAP = "192.168.88.1"
-IP_ADDR_CAP = "192.168.1.1"
+IP_ADDR_CAP = "192.168.88.1"
+# IP_ADDR_CAP = "192.168.1.1"
 CLIENT_MAC = "00:0E:C6:59:A1:A6"
 SALT = "D2...40."
 STR_ENCRYPT = "VNPT"
-#SERIAL = "1292922130B4454"
-SERIAL = "VNPT031062B1"
+SERIAL = "1292922130B4454"
+# SERIAL = "VNPT031062B1"
 # SERIAL = "1280909164648DA"
 headersCurl = ["Content-Type: application/json", "Accept:application/json"]
 
@@ -280,9 +280,14 @@ if __name__ == '__main__':
     # }
 
     request = {
-    "action": "reboot",
-    "macList": "CC:71:90:88:31:58",
-    "requestId": 11232
+    "action": "meshCreate",
+    "requestId": 2502,
+    "meshMode": 2,
+    "ssidName": "ThoaTest_811",
+    "password": "1234567890_137",
+    "addNode": False,
+    "repeaterSsidName": "1111_AP_Wireless_Test_2GHz",
+    "repeaterAuthenMode": "open"
 }
 #     request = {
 #     "action": "upgradeFirmware",

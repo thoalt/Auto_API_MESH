@@ -5,6 +5,7 @@ import pytest
 from APIObject.login import LoginClient
 from APIObject.meshAPI import meshCreateClient, meshViewClient, MESH_MODE, AUTHEN_MODE
 from APIObject.openssesion import openssesionClient
+from APIObject.topology import topologyClient
 from APIObject.wifi5GAPI import ssid5GViewClient
 
 from APIObject.reset import resetClient
@@ -26,6 +27,7 @@ class Test_Mesh_Create():
         self.ssidViewClt = ssid5GViewClient()
         self.resetClt = resetClient()
         self.serialClt = Serial_Lib()
+        self.topoClt = topologyClient()
 
         self.mode = MESH_MODE.REPEATER
         self.ssidName = "ThoaTest_" + str(random.randint(1, 2000))
@@ -33,7 +35,7 @@ class Test_Mesh_Create():
 
         self.repeatDct = {
             "reSSID": "1111_AP_Wireless_Test_2GHz",
-            "reAuthen": AUTHEN_MODE.WF5_WPA2_PSK,
+            "reAuthen": "password",
             "rePass": "1234567890"
         }
 
@@ -75,6 +77,10 @@ class Test_Mesh_Create():
             # View SSID
             resBody = self.ssidViewClt.ssid5GView(cookieAfter).body
             self.ssidViewClt.assert_ssid5GView_result(resBody, ssidName=self.ssidName, passWord=self.password)
+
+            time.sleep(3)
+            # Topology
+            resBody_topo = self.topoClt.topology(cookies=cookieAfter).body
 
             # Login to Webgui
             driver = driver_setup

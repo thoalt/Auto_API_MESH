@@ -8,6 +8,7 @@ from APIObject.openssesion import openssesionClient
 from APIObject.wifi5GAPI import ssid5GViewClient
 
 from APIObject.reset import resetClient
+from APIObject.topology import topologyClient
 from base.SerialLib import Serial_Lib
 from base.WiFiLib import Wifi_lib
 from pages.LoginPage import LoginPage
@@ -27,10 +28,12 @@ class Test_Mesh_Create():
         self.resetClt = resetClient()
         self.serialClt = Serial_Lib()
         self.wifiClt = Wifi_lib()
+        self.topoClt = topologyClient()
 
         self.mode = MESH_MODE.ROUTER
         self.ssidName = "ThoaTest_" + str(random.randint(1, 2000))
         self.password = "1234567890_" + str(random.randint(1, 200))
+        self.addNode = True
 
         modeMesh = self.serialClt.Get_Mode_Mesh()
         if modeMesh != "FACTORY":
@@ -49,7 +52,8 @@ class Test_Mesh_Create():
             # Create Mesh
             pload = self.meshCreateClt.Create_meshCreate_Pload(meshMode=self.mode,
                                                                ssidName=self.ssidName,
-                                                               passW=self.password)
+                                                               passW=self.password,
+                                                               addNode=self.addNode)
 
             resBody = self.meshCreateClt.meshCreate(cookieAfter, pload=pload).body
             time.sleep(120)
@@ -61,6 +65,10 @@ class Test_Mesh_Create():
             # View SSID
             resBody = self.ssidViewClt.ssid5GView(cookieAfter).body
             self.ssidViewClt.assert_ssid5GView_result(resBody, ssidName=self.ssidName, passWord=self.password)
+
+            time.sleep(3)
+            # Topology
+            resBody_topo = self.topoClt.topology(cookies=cookieAfter).body
 
             # Login to Webgui
             driver = driver_setup
