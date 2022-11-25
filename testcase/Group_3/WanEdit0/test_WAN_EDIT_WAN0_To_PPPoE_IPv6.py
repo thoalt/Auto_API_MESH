@@ -10,11 +10,11 @@ class Test_Wan_Create():
     @pytest.fixture(autouse=True, scope="function")
     def set_up(self):
         self.timeOut = 5
-        self.exp = {"code": 0, "msg": "Success"}
+        self.exp = {"code": 11, "msg": "Verify Fail"}
         self.idx = 1
         self.vlanID = 10
         self.wanTypeAfter = WAN_TYPE().PPPoE
-        self.ipVerAfter = IP_VER().IPv4
+        self.ipVerAfter = IP_VER().IPv6
         self.vlanIDAfter = 100
 
         self.userName_PPPoE = "User_PPPoE_Test"
@@ -42,30 +42,17 @@ class Test_Wan_Create():
 
         self.wanEditClt = WanCreateEditClient()
         self.wanViewClt = WanViewConfigClient()
-        self.wp = SettingWANPage(self.driver)
-        self.wanEditClt.Create_DHCP_Dual(cookies=self.cookie,
-                                         index=1,
-                                         vlanId=99)
-
-        time.sleep(30)
-        self.wp.refresh()
-        self.wanEditClt.Create_DHCP_IPv4(cookies=self.cookie,
-                                         index=2,
-                                         vlanId=999)
-        time.sleep(30)
-        self.wp.refresh()
-
         self.wanViewClt.wanViewConfig(self.cookie)
+        self.wp = SettingWANPage(self.driver)
 
     def test_WAN_EDIT_RES_1(self):
         time.sleep(self.timeOut)
         ploadCom = self.wanEditClt.Create_WanEdit_Common_Pload(
-            wanIdx=2,
+            wanIdx=0,
             wanType=self.wanTypeAfter
         )
         pload = self.wanEditClt.Create_WanCreate_Edit_WAN_PPPoE(
             pload=ploadCom,
-            vlanID=self.vlanIDAfter,
             IPVer=self.ipVerAfter,
             userName=self.userName_PPPoE,
             passW=self.passW_PPPoE
@@ -75,22 +62,21 @@ class Test_Wan_Create():
         self.wanEditClt.assert_response(resBody,
                                         self.exp['code'],
                                         self.exp['msg'])
-        time.sleep(30)
-        resBody = self.wanViewClt.wanViewConfig(self.cookie).body
-        self.wanViewClt.assert_result_WAN2(resBody,
-                                      self.wanTypeAfter,
-                                      self.vlanIDAfter,
-                                      self.ipVerAfter,
-                                      userName=self.userName_PPPoE,
-                                      passW=self.passW_PPPoE)
-
-        # Get Infor in GUI
-        self.wp.navigate_to_WAN_2_setting_page()
-        wanTypeGUI = self.wanViewClt.convert_wantype_API_to_GUI(self.wanTypeAfter)
-        ipVerGui = self.wanViewClt.conver_IPVer_API_To_GUI(self.ipVerAfter)
-
-        self.wanViewClt.assert_val(str(wanTypeGUI), str(self.wp.get_service()))
-        self.wanViewClt.assert_val(ipVerGui, self.wp.get_IPVersion())
-
-        self.wanViewClt.assert_val(self.userName_PPPoE, self.wp.get_PPPoE_IPV4_User())
-        self.wanViewClt.assert_val(self.passW_PPPoE, self.wp.get_PPPoE_IPV4_Pass())
+        # time.sleep(30)
+        # resBody = self.wanViewClt.wanViewConfig(self.cookie).body
+        # self.wanViewClt.assert_result_WAN0(resBody,
+        #                               wanType= self.wanTypeAfter,
+        #                               ipVer= self.ipVerAfter,
+        #                               userName=self.userName_PPPoE,
+        #                               passW=self.passW_PPPoE)
+        #
+        # # Get Infor in GUI
+        # self.wp.navigate_to_WAN_setting_page()
+        # wanTypeGUI = self.wanViewClt.convert_wantype_API_to_GUI(self.wanTypeAfter)
+        # ipVerGui = self.wanViewClt.conver_IPVer_API_To_GUI(self.ipVerAfter)
+        #
+        # self.wanViewClt.assert_val(str(wanTypeGUI), str(self.wp.get_service()))
+        # self.wanViewClt.assert_val(ipVerGui, self.wp.get_IPVersion())
+        #
+        # self.wanViewClt.assert_val(self.userName_PPPoE, self.wp.get_PPPoE_IPV4_User())
+        # self.wanViewClt.assert_val(self.passW_PPPoE, self.wp.get_PPPoE_IPV4_Pass())

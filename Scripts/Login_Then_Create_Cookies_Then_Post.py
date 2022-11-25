@@ -7,13 +7,15 @@ import random
 import pycurl
 from passlib import hash
 import requests
-
-IP_ADDR_CAP = "192.168.88.1"
+import Config.config as cfg
+# IP_ADDR_CAP = "192.168.88.1"
+IP_ADDR_CAP = "192.168.1.1"
 CLIENT_MAC = "00:0E:C6:59:A1:A6"
 SALT = "D2...40."
 STR_ENCRYPT = "VNPT"
-# SERIAL = "1292922130B4454"
-SERIAL = "1280909164648DA"
+#SERIAL = "1292922130B4454"
+SERIAL = "VNPT031062B1"
+# SERIAL = "1280909164648DA"
 headersCurl = ["Content-Type: application/json", "Accept:application/json"]
 
 FW_Name = "EW12_EW12ST000T0004.tar.gz"
@@ -194,6 +196,7 @@ def Open_Session_And_Get_Session_ID(reqID=None):
         """
 
     payload = Create_OpenSession_Pload(reqID)
+    print(url_Login)
     response = post(url=url_Login, headers=headersCurl, pload=payload)
 
     sesID, salt = Get_SessionID(response.headers)
@@ -265,12 +268,31 @@ if __name__ == '__main__':
     #     "requestId": 7463
     # }
     # resPonse3 = post(url=url_Agent, headers=headersCurl, cookies=cookie, pload=req_SSIDView)
+    time.sleep(5)
+    # request = {
+    #         "action": "addNewNode",
+    #         "requestId": 1111
+    #     }
+
+    # request2 = {
+    #     "action": "topology",
+    #     "requestId": 8098
+    # }
 
     request = {
-    "action": "radio2.4GEdit",
-    "requestId": 3149,
-    "channel": "1",
-    "bandwidth": "20MHz"
+    "action": "reboot",
+    "macList": "CC:71:90:88:31:58",
+    "requestId": 11232
 }
+#     request = {
+#     "action": "upgradeFirmware",
+#     "macList": cfg.CAP_MAC,
+#     "fileName": "EW12_EW12ST000U0004.tar.gz",
+#     "md5sum": "34a82f3bf8aa4e4f7a7d3491056a4a0a",
+#     "requestId": 1124
+# }
+
 
     resPonse4 = post(url=url_Agent, headers=headersCurl, cookies=cookie, pload=request)
+    time.sleep(5)
+    # resPonse5 = post(url=url_Agent, headers=headersCurl, cookies=cookie, pload=request2)

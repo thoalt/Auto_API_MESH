@@ -41,16 +41,16 @@ class Test_Radio5GView():
             resBody = self.radio5G.radio5GView(self.cookie).body
             resBody_lst.append(resBody)
 
-            # SSH then check the bitrate. From Bitrate convert to bandwith
-            self.client5G.forget_wifi()
-            self.client5G.connect_wifi(ssid=cfg.SSID, passwd=cfg.PASSWORD, bssid=cfg.CAP_MAC_WIFI_5G)
-            bssid_get = self.client5G.get_BSSID_connected(cfg.CARD_WIFI_NAME)
-
-            if bssid_get != cfg.CAP_MAC_WIFI_5G:
-                sys.exit()
-
-            channel_get = self.client5G.Get_Wifi_Info_Show_Interface(cfg.CARD_WIFI_NAME).channel
-            channel_Client_lst.append(channel_get)
+            # # SSH then check the bitrate. From Bitrate convert to bandwith
+            # self.client5G.forget_wifi()
+            # self.client5G.connect_wifi(ssid=cfg.SSID, passwd=cfg.PASSWORD, bssid=cfg.CAP_MAC_WIFI_5G)
+            # bssid_get = self.client5G.get_BSSID_connected(cfg.CARD_WIFI_NAME)
+            #
+            # if bssid_get != cfg.CAP_MAC_WIFI_5G:
+            #     sys.exit()
+            #
+            # channel_get = self.client5G.Get_Wifi_Info_Show_Interface(cfg.CARD_WIFI_NAME).channel
+            # channel_Client_lst.append(channel_get)
 
         self.radio5G.assert_response_list(resBody_lst,
                                         self.exp['code'],
@@ -59,5 +59,5 @@ class Test_Radio5GView():
 
         self.radio5G.assert_result_lst(resBody_lst,
                                        channelLst=self.dataExp)
-        print(channel_Client_lst)
-        self.radio5G.assert_val_lst(self.dataExp, channel_Client_lst)
+        # print(channel_Client_lst)
+        # self.radio5G.assert_val_lst(self.dataExp, channel_Client_lst)

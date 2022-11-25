@@ -10,7 +10,7 @@ class Test_Wan_Create():
         self.timeOut = 5
         self.exp = {"code": 0, "msg": "Success"}
         self.upFWClt = UpdateFWClient()
-        self.mac = cfg.MRE1_MAC
+        self.mac = cfg.CAP_MAC
         self.fwName = "EW12SX_1.5.2.53.tar.gz"
         self.md5 = "4f8f0a09be9429082055d4e9d05d570a"
 

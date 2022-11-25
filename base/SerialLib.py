@@ -107,7 +107,7 @@ class Serial_Lib:
         ipAddr = ""
         cmd = "ifconfig br-lan | grep 'inet addr'"
         output = self.Get_Ouput_From_Command(cmd, 5)
-        #print(output)
+        print(output)
         for idx, line in enumerate(output):
             if "inet addr:" in line.decode('utf8'):
                 ipAddLine = line.decode('utf8')
@@ -122,6 +122,6 @@ class Serial_Lib:
         self.Run_Command("firstboot -y; reboot\n")
         time.sleep(240)
 # print(f"{str(idx)}: {line.decode('utf8')}")
-classLib = Serial_Lib()
-classLib.Get_IP_Address()
+# classLib = Serial_Lib()
+# classLib.Get_IP_Address()
 

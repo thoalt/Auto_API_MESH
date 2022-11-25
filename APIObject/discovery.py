@@ -49,9 +49,9 @@ class discoveryClient(BaseClient):
             payload = self.Create_Discovery_Pload(reqID)
         else:
             payload = pload
-        print(payload)
+        #print(payload)
         bytesPload = bytes(json.dumps(payload), "utf-8")
-        print(bytesPload)
+        #print(bytesPload)
         response = self.Client.Send_To(byteToSend=bytesPload)
         print("*****************RESPONSE ************")
         print(response)

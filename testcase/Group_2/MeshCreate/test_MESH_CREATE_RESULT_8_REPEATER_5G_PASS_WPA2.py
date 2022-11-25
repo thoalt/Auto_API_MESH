@@ -10,12 +10,13 @@ from APIObject.wifi5GAPI import ssid5GViewClient
 from APIObject.reset import resetClient
 from base.SerialLib import Serial_Lib
 from pages.LoginPage import LoginPage
-from pages.SettingWirelessPage import WirelessSSDIPage, WirelessRepeaterIPage
+from pages.SettingWirelessPage import WirelessSSDIPage
 from Config import config as cfg
 from Utilities import Utility as utl
 
 @pytest.mark.usefixtures("login_without_create_mesh")
 class Test_Mesh_Create():
+
     @pytest.fixture(autouse=True, scope="function")
     def set_up(self):
         self.timeOut = 10
@@ -31,8 +32,8 @@ class Test_Mesh_Create():
         self.password = "1234567890_" + str(random.randint(1, 200))
 
         self.repeatDct = {
-            "reSSID": "1111_AP_Wireless_Test",
-            "reAuthen": AUTHEN_MODE.WF5_WPA_PSK,
+            "reSSID": "1111_AP_Wireless_Test_5GHz",
+            "reAuthen": AUTHEN_MODE.WF5_WPA2_PSK,
             "rePass": "1234567890"
         }
 
@@ -40,7 +41,7 @@ class Test_Mesh_Create():
         if modeMesh != "FACTORY":
             self.serialClt.Reset_Factory()
 
-    @pytest.mark.skip(reason="This is Manual Testcase")
+    # @pytest.mark.skip(reason="This is Manual Testcase")
     def test_MESH_CREATE_RES_1(self, driver_setup):
         try:
             ### Login After Reset Factory
@@ -86,21 +87,11 @@ class Test_Mesh_Create():
             ssidp.navigation_to_SSID_page()
             gui_SSID = ssidp.Get_SSID_Info()
 
-            # View Repeater Page
-            rep = WirelessRepeaterIPage(driver)
-            rep.naviagate_to_repeater_page()
-            gui_REPEATER = rep.Get_Repeater_Infor(bandMode='5G')
-
-
             self.meshCreateClt.assert_val(self.ssidName, gui_SSID.ssidName)
             self.meshCreateClt.assert_val("WPA2-PSK", gui_SSID.serMode)
             self.meshCreateClt.assert_val(self.password, gui_SSID.password)
 
-            self.meshCreateClt.assert_val(self.repeatDct['reSSID'], gui_REPEATER.ssidName)
-            self.meshCreateClt.assert_val(self.repeatDct['reAuthen'], gui_REPEATER.serMode)
-            self.meshCreateClt.assert_val(self.repeatDct['rePass'], gui_REPEATER.password)
-
-            # # Tear down
+            # Tear down
             # self.serialClt.Reset_Factory()
             # self.serialClt.Close_Serial_Connect()
         except Exception as exc:

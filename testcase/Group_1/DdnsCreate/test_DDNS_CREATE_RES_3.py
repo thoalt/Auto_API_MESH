@@ -1,6 +1,7 @@
 import time
 import pytest
-from APIObject.serviceAPI import ddnsCreateEditClient
+from APIObject.serviceAPI import ddnsCreateEditClient, ddnsRemoveClient
+
 
 @pytest.mark.usefixtures("login")
 class Test_ddnsCreate():
@@ -8,8 +9,11 @@ class Test_ddnsCreate():
     def set_up(self):
         self.timeOut = 610
         self.exp = {"code": 15, "msg": "Session Timeout"}
+        self.ddnsRevClt = ddnsRemoveClient()
+        self.ddnsRevClt.ddns_remove_all(self.cookie)
+
         self.ddnsCreateClt = ddnsCreateEditClient()
-        self.idx = 2
+        self.idx = 0
         self.serProvider = "dyndns.org"
         self.hostname = "test.com.vn"
         self.username = "thoalt"

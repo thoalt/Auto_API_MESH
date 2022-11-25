@@ -11,8 +11,7 @@ from base.SSHLib import SSH_Lib
 class Test_Reboot():
     sesID, salt = "", ""
     reqID = 0
-#@pytest.mark.usefixtures("login")
-#class Test_Reboot():
+
     @pytest.fixture(autouse=True, scope="function")
     def set_up(self):
         self.exp = {"code": 0, "msg": "Success", "action": "reboot"}
@@ -24,6 +23,7 @@ class Test_Reboot():
 
         SSHSes = SSH_Lib(SSHShell=self.SSHShell)
         SSHSes.start_mobile_agent()
+
     def test_REBOOT_REQID_1(self):
         time.sleep(self.timeOut)
         resBody_Lst = []

@@ -41,19 +41,19 @@ class Test_Radio5GView():
             resBody = self.radio5G.radio5GView(self.cookie).body
             resBody_lst.append(resBody)
 
-            # SSH then check the bitrate. From Bitrate convert to bandwith
-            self.client5G.forget_wifi()
-            self.client5G.connect_wifi(ssid=cfg.SSID, passwd=cfg.PASSWORD, bssid=cfg.CAP_MAC_WIFI_5G)
-            bssid_get = self.client5G.get_BSSID_connected(cfg.CARD_WIFI_NAME)
-
-            if bssid_get != cfg.CAP_MAC_WIFI_5G:
-                sys.exit()
-
-            # SSH then run command get Bitrate
-            bitrate = self.session.get_bitrate(cfg.WIFI_INT_5G)
-            bandW = self.client5G.Convert_Bitrate_To_Bandwith(standard=self.standard,
-                                                           bitrate=bitrate)
-            bandwith_Client_lst.append(bandW)
+            # # SSH then check the bitrate. From Bitrate convert to bandwith
+            # self.client5G.forget_wifi()
+            # self.client5G.connect_wifi(ssid=cfg.SSID, passwd=cfg.PASSWORD, bssid=cfg.CAP_MAC_WIFI_5G)
+            # bssid_get = self.client5G.get_BSSID_connected(cfg.CARD_WIFI_NAME)
+            #
+            # if bssid_get != cfg.CAP_MAC_WIFI_5G:
+            #     sys.exit()
+            #
+            # # SSH then run command get Bitrate
+            # bitrate = self.session.get_bitrate(cfg.WIFI_INT_5G)
+            # bandW = self.client5G.Convert_Bitrate_To_Bandwith(standard=self.standard,
+            #                                                bitrate=bitrate)
+            # bandwith_Client_lst.append(bandW)
 
         self.radio5G.assert_response_list(resBody_lst,
                                         self.exp['code'],
@@ -62,5 +62,5 @@ class Test_Radio5GView():
 
         self.radio5G.assert_result_lst(resBody_lst,
                                        bandWLst=self.dataExp)
-        print(bandwith_Client_lst)
-        self.radio5G.assert_val_lst(self.dataExp, bandwith_Client_lst)
+        # print(bandwith_Client_lst)
+        # self.radio5G.assert_val_lst(self.dataExp, bandwith_Client_lst)

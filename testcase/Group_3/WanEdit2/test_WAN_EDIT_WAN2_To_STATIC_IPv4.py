@@ -88,11 +88,11 @@ class Test_Wan_Create():
 
         # GUI Setting
         self.wp.navigate_to_WAN_2_setting_page()
-        wanTypeGUI = self.wanViewClt.convert_wantype_API_to_GUI(self.wanType)
-        ipVerGui = self.wanViewClt.conver_IPVer_API_To_GUI(self.IPVer)
+        wanTypeGUI = self.wanViewClt.convert_wantype_API_to_GUI(self.wanTypeAfter)
+        ipVerGui = self.wanViewClt.conver_IPVer_API_To_GUI(self.ipVerAfter)
 
         self.wanViewClt.assert_val(str(wanTypeGUI), str(self.wp.get_service()))
-        self.wanViewClt.assert_val(int(self.vlanID), int(self.wp.get_VLAN_ID()))
+        self.wanViewClt.assert_val(int(self.vlanIDAfter), int(self.wp.get_VLAN_ID()))
         self.wanViewClt.assert_val(ipVerGui, self.wp.get_IPVersion())
 
         self.wanViewClt.assert_val(self.ipAddr, self.wp.get_IPV4_Addr())

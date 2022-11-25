@@ -228,8 +228,9 @@ class SettingWANPage(Web_Lib):
 
     def navigate_to_WAN_1_setting_page(self):
         self.click_setting_cap()
-        self.click_WAN()
         time.sleep(1)
+        self.click_WAN()
+        time.sleep(2)
         self.click_Edit1()
         time.sleep(1)
         self.click_Basic_Tab()
@@ -237,15 +238,17 @@ class SettingWANPage(Web_Lib):
 
     def navigate_to_WAN_2_setting_page(self):
         self.click_setting_cap()
+        time.sleep(1)
         self.click_WAN()
         time.sleep(1)
         self.click_Edit2()
-        time.sleep(1)
+        time.sleep(2)
         self.click_Basic_Tab()
         time.sleep(1)
 
     def navigate_to_WAN_3_setting_page(self):
         self.click_setting_cap()
+        time.sleep(1)
         self.click_WAN()
         time.sleep(1)
         self.click_Edit3()

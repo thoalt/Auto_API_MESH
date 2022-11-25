@@ -24,7 +24,7 @@ class Test_Wan_Create():
 
         self.userName = "UserPPPoE"
         self.passW = "PassPPPoE"
-        self.wp = SettingWANPage(self.driver)
+        # self.wp = SettingWANPage(self.driver)
 
     def test_WAN_CREATE_RES_1(self):
         time.sleep(self.timeOut)
@@ -56,6 +56,7 @@ class Test_Wan_Create():
                                            passW=self.passW)
 
         # Get Infor in GUI
+        self.wp = SettingWANPage(self.driver)
         self.wp.navigate_to_WAN_1_setting_page()
         wanTypeGUI = self.wanViewClt.convert_wantype_API_to_GUI(self.wanType)
         ipVerGui = self.wanViewClt.conver_IPVer_API_To_GUI(self.IPVer)

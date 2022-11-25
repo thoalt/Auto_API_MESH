@@ -32,7 +32,7 @@ class Test_Mesh_Create():
         self.password = "1234567890_" + str(random.randint(1, 200))
 
         self.repeatDct = {
-            "reSSID": "1111_AP_Wireless_Test",
+            "reSSID": "1111_AP_Wireless_Test_2GHz",
             "reAuthen": AUTHEN_MODE.WF5_WPA_PSK,
             "rePass": "1234567890"
         }
@@ -92,8 +92,8 @@ class Test_Mesh_Create():
             self.meshCreateClt.assert_val(self.password, gui_SSID.password)
 
             # Tear down
-            self.serialClt.Reset_Factory()
-            self.serialClt.Close_Serial_Connect()
+            # self.serialClt.Reset_Factory()
+            # self.serialClt.Close_Serial_Connect()
         except Exception as exc:
             print(exc)
             self.serialClt.Reset_Factory()

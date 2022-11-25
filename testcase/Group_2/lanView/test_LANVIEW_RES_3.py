@@ -10,6 +10,7 @@ class Test_LanView():
         self.exp = {"code": 15, "msg": "Session Timeout"}
         self.LanviewClt = LanViewClient()
 
+    @pytest.mark.skip(reason="This testcase only for test Session Timeout")
     def test_LANVIEW_RES_3(self):
         time.sleep(self.timeOut)
         response = self.LanviewClt.lanView(self.cookie)
