@@ -36,10 +36,7 @@ class Serial_Lib:
     def Get_Ouput_From_Command(self, command, numLine=5):
         self.Login_To_Serial()
         self.Run_Command(command=command)
-        # print("Run Command Success")
         output = self.con.readlines()[0:int(numLine)]
-        # print("Get Output OK")
-        # print(output)
         self.Close_Serial_Connect()
         return output
 
@@ -59,7 +56,9 @@ class Serial_Lib:
         meshMode = ""
         cmd = "cat /etc/config/mode_mesh"
         output = self.Get_Ouput_From_Command(cmd, 5)
+        # print(output)
         for idx, line in enumerate(output):
+            # print(line.decode('utf8'))
             if cmd in line.decode('utf8'):
                 meshModeLine = output[idx + 1].decode('utf8')
                 break
@@ -107,14 +106,14 @@ class Serial_Lib:
         ipAddr = ""
         cmd = "ifconfig br-lan | grep 'inet addr'"
         output = self.Get_Ouput_From_Command(cmd, 5)
-        print(output)
+        # print(output)
         for idx, line in enumerate(output):
             if "inet addr:" in line.decode('utf8'):
                 ipAddLine = line.decode('utf8')
                 break
 
         ipAddr = ipAddLine.strip().split(" ")[1].split(":")[1]
-        print(ipAddr)
+        # print(ipAddr)
         return ipAddr
 
     def Reset_Factory(self):
@@ -123,5 +122,5 @@ class Serial_Lib:
         time.sleep(240)
 # print(f"{str(idx)}: {line.decode('utf8')}")
 # classLib = Serial_Lib()
-# classLib.Get_IP_Address()
+# classLib.Get_Mode_Mesh()
 

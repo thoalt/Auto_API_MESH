@@ -77,37 +77,46 @@ def login(request):
     - If Mode Mesh is CAP, and SSIDName is not Default SSID --> First Reset Factory, Then Login and Create new mesh default --> return Cookie
     - If Mode Mesh is CAP, and SSIDName is Default SSID --> Only Login  --> Return Cookie
     """
-    # print("START LOGIN")
-    serialClt = Serial_Lib()
-    meshCreateClt = meshCreateClient()
     ClientSes = openssesionClient()
+    cookie = ClientSes.Open_Sesion_And_Get_Cookie()
+
     LoginClt = LoginClient()
-    cookie = ""
+    LoginClt.login(cookie)
 
-    passGuiDefault = utl.md5_encrypt(cfg.STR_ENCRYPT, "00000006")
-    modeMesh = serialClt.Get_Mode_Mesh()
-    SSIDName = serialClt.Get_SSID_Name(cfg.WIFI_INT_5G)
-    passGUI = serialClt.Get_Pass_GUI()
-    ipAddr = serialClt.Get_IP_Address()
-
-    if modeMesh == "FACTORY":
-        cookie = ClientSes.Open_Sesion_And_Get_Cookie()
-        LoginClt.login(cookie)
-        meshCreateClt.Create_Mesh_Network_Default(cookie)
-
-    elif (modeMesh != "FACTORY") \
-            and ((SSIDName == cfg.SSID) and (passGUI == passGuiDefault) and (ipAddr == cfg.IP_ADDR_CAP)):
-        cookie = ClientSes.Open_Sesion_And_Get_Cookie()
-        LoginClt.login(cookie)
-
-    else:
-        serialClt.Reset_Factory()
-        serialClt.Close_Serial_Connect()
-        cookie = ClientSes.Open_Sesion_And_Get_Cookie()
-        LoginClt.login(cookie)
-        meshCreateClt.Create_Mesh_Network_Default(cookie)
-    del serialClt
     request.cls.cookie = cookie
+
+
+    # # print("START LOGIN")
+    # serialClt = Serial_Lib()
+    # meshCreateClt = meshCreateClient()
+    # ClientSes = openssesionClient()
+    # LoginClt = LoginClient()
+    # cookie = ""
+    #
+    # passGuiDefault = utl.md5_encrypt(cfg.STR_ENCRYPT, "00000006")
+    # modeMesh = serialClt.Get_Mode_Mesh()
+    # SSIDName = serialClt.Get_SSID_Name(cfg.WIFI_INT_5G)
+    # passGUI = serialClt.Get_Pass_GUI()
+    # ipAddr = serialClt.Get_IP_Address()
+    #
+    # if modeMesh == "FACTORY":
+    #     cookie = ClientSes.Open_Sesion_And_Get_Cookie()
+    #     LoginClt.login(cookie)
+    #     meshCreateClt.Create_Mesh_Network_Default(cookie)
+    #
+    # elif (modeMesh != "FACTORY") \
+    #         and ((SSIDName == cfg.SSID) and (passGUI == passGuiDefault) and (ipAddr == cfg.IP_ADDR_CAP)):
+    #     cookie = ClientSes.Open_Sesion_And_Get_Cookie()
+    #     LoginClt.login(cookie)
+    #
+    # else:
+    #     serialClt.Reset_Factory()
+    #     cookie = ClientSes.Open_Sesion_And_Get_Cookie()
+    #     LoginClt.login(cookie)
+    #     meshCreateClt.Create_Mesh_Network_Default(cookie)
+    # serialClt.Close_Serial_Connect()
+    # del serialClt
+    # request.cls.cookie = cookie
 
 
 @pytest.fixture(autouse=False, scope="class")

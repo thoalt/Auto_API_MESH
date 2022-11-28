@@ -11,9 +11,11 @@ import Config.config as cfg
 IP_ADDR_CAP = "192.168.88.1"
 # IP_ADDR_CAP = "192.168.1.1"
 CLIENT_MAC = "00:0E:C6:59:A1:A6"
+# SALT = "00000000"
 SALT = "D2...40."
 STR_ENCRYPT = "VNPT"
-SERIAL = "1292922130B4454"
+SERIAL = "10129372686AF28"
+# SERIAL = "1292922130B4454"
 # SERIAL = "VNPT031062B1"
 # SERIAL = "1280909164648DA"
 headersCurl = ["Content-Type: application/json", "Accept:application/json"]
@@ -88,8 +90,8 @@ def post(url, headers=None, verify=False, cookies=None, pload=None):
     c.close()
 
     resHeaders = rawHeaders.getvalue().decode('UTF-8')
-    # print("***************** HEADER **********")
-    # print(resHeaders)
+    print("***************** HEADER **********")
+    print(resHeaders)
     resBody = rawBody.getvalue().decode('UTF-8')
     # print("***************** RESPONSE BEFORE LOAD **********")
     # print(resBody)
@@ -161,7 +163,10 @@ def Get_SessionID(resHeaders):
                 if "SESSIONID" in val:
                     sesID = val.split("=")[1]
                 if "salt" in val:
-                    salt = val.split("=")[1]
+                    salt = val.split("=")[1][0:8]
+
+    # print("SESSIONID: " + sesID)
+    # print("SALT: " + salt)
     return sesID, salt
 
 
@@ -221,81 +226,17 @@ if __name__ == '__main__':
     print("************* LOGIN *************")
     response = login(cookies=cookie)
 
-    print("************* Upload File *************")
-    reqHeaders = {"Cookie": cookie}
-    print("FW_PATH = " + FW_Path)
-
-    # resFW = uploadFile(url=url_Upload,
-    #                    headers=headersCurl,
-    #                    cookies=cookie,
-    #                    filePath=FW_Path)
-
-    # try:
-    #     with open(FW_Path, 'rb') as fobj:
-    #         print("URL_UPLOAD = " + url_Upload)
-    #         print("HEADER = " + str(reqHeaders))
-    #         print("DATA = " + str(fobj))
-    #         resFW = requests.post(url_Upload, headers={"Cookie": cookie},  data=fobj, verify=False)
-    #
-    # except Exception as ex:
-    #     print(str(ex))
+    # print("************* Upload File *************")
+    # reqHeaders = {"Cookie": cookie}
+    # print("FW_PATH = " + FW_Path)
 
     print("************* Other API *************")
-    # req_CreateMesh = {
-    #     "action": "meshCreate",
-    #     "requestId": 18581,
-    #     "meshMode": 2,
-    #     "ssidName": "ThoaTest_1659",
-    #     "password": "1234567890_90",
-    #     "addNode": False,
-    #     "repeaterSsidName": "1111_AP_Wireless_Test_2GHz",
-    #     "repeaterAuthenMode": "OPEN"
-    # }
-    # resPonse = post(url=url_Agent, headers=headersCurl, cookies=cookie, pload=req_CreateMesh)
-    # # resBody = resPonse.body
-    # time.sleep(180)
-    #
-    # req_MeshView = {
-    #     "action": "meshView",
-    #     "requestId": 8098
-    # }
-    # resPonse2 = post(url=url_Agent, headers=headersCurl, cookies=cookie, pload=req_MeshView)
-    #
-    # time.sleep(3)
-    #
-    # req_SSIDView = {
-    #     "action": "ssid5GView",
-    #     "requestId": 7463
-    # }
-    # resPonse3 = post(url=url_Agent, headers=headersCurl, cookies=cookie, pload=req_SSIDView)
     time.sleep(5)
-    # request = {
-    #         "action": "addNewNode",
-    #         "requestId": 1111
-    #     }
-
-    # request2 = {
-    #     "action": "topology",
-    #     "requestId": 8098
-    # }
-
     request = {
-    "action": "meshCreate",
-    "requestId": 2502,
-    "meshMode": 2,
-    "ssidName": "ThoaTest_811",
-    "password": "1234567890_137",
-    "addNode": False,
-    "repeaterSsidName": "1111_AP_Wireless_Test_2GHz",
-    "repeaterAuthenMode": "open"
-}
-#     request = {
-#     "action": "upgradeFirmware",
-#     "macList": cfg.CAP_MAC,
-#     "fileName": "EW12_EW12ST000U0004.tar.gz",
-#     "md5sum": "34a82f3bf8aa4e4f7a7d3491056a4a0a",
-#     "requestId": 1124
-# }
+        "action": "topology",
+        "requestId": 8098
+    }
+
 
 
     resPonse4 = post(url=url_Agent, headers=headersCurl, cookies=cookie, pload=request)

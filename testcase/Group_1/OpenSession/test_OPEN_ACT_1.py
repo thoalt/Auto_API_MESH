@@ -4,7 +4,7 @@ from base.SSHLib import SSH_Lib
 from APIObject.openssesion import openssesionClient
 
 
-@pytest.mark.usefixtures("create_shell")
+# @pytest.mark.usefixtures("create_shell")
 class Test_OpenSession():
     ### Data Test
     val_Time = [605]
@@ -14,8 +14,8 @@ class Test_OpenSession():
 
     @pytest.fixture(autouse=True, scope="function")
     def set_up(self):
-        session = SSH_Lib(SSHShell=self.SSHShell)
-        session.start_mobile_agent()
+        # session = SSH_Lib(SSHShell=self.SSHShell)
+        # session.start_mobile_agent()
         self.client = openssesionClient()
 
 
