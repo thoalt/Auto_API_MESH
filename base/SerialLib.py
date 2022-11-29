@@ -52,6 +52,7 @@ class Serial_Lib:
         self.con.close()
 
     def Get_Mode_Mesh(self):
+        modeLst = ['CAP', 'FACTORY', 'MRE']
         meshModeLine = ""
         meshMode = ""
         cmd = "cat /etc/config/mode_mesh"
@@ -59,11 +60,13 @@ class Serial_Lib:
         # print(output)
         for idx, line in enumerate(output):
             # print(line.decode('utf8'))
-            if cmd in line.decode('utf8'):
-                meshModeLine = output[idx + 1].decode('utf8')
+            if any(mode in line.decode('utf8') for mode in modeLst):
+                meshModeLine = output[idx].decode('utf8')
                 break
         if "root" in meshModeLine:
             meshMode = meshModeLine.split("root")[0]
+        else:
+            meshMode = meshModeLine.strip()
         # print("********* MESH MODE ***********")
         # print(meshMode)
         return meshMode
@@ -122,5 +125,5 @@ class Serial_Lib:
         time.sleep(240)
 # print(f"{str(idx)}: {line.decode('utf8')}")
 # classLib = Serial_Lib()
-# classLib.Get_Mode_Mesh()
+# classLib.Get_IP_Address()
 
