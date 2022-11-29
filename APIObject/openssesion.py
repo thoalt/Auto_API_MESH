@@ -70,8 +70,8 @@ class openssesionClient(BaseClient):
                         sesID = val.split("=")[1]
                     if "salt" in val:
                         salt = val.split("=")[1][0:8]
-        # print("**** SESIONID: ***" + str(sesID))
-        # print("**** SALT: ***" + str(salt))
+        print("**** SESIONID: ***" + str(sesID))
+        print("**** SALT: ***" + str(salt))
 
         return sesID, salt
 
