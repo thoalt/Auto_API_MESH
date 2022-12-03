@@ -8,11 +8,11 @@ class Test_DdnsEdit():
     @pytest.fixture(autouse=True, scope="function")
     def set_up(self):
         self.timeOut = 5
-        self.exp = {"code": 0, "msg": "Success", "action": "ddnsCreat"}
-        self.data = ["abc.abc.abc"]
+        self.exp = {"code": 0, "msg": "Success", "action": "ddnsCreate"}
+        self.data = ["abc.abc", "abc.abc.abc", "google.com.vn"]
         #"abc.abc", "abc.abc.abc"
         self.ddnsRevClt = ddnsRemoveClient()
-        self.ddnsRevClt.ddns_remove_all(self.cookie)
+
 
         self.ddnsCreateClt = ddnsCreateEditClient()
         self.idx = 0
@@ -24,6 +24,7 @@ class Test_DdnsEdit():
     def test_DDNSEDIT_RES_HOST_1(self):
         resBody_lst = []
         for item in self.data:
+            self.ddnsRevClt.ddns_remove_all(self.cookie)
             pload = self.ddnsCreateClt.Create_ddnsCreate_pload(index=self.idx,
                                                            serviceProvider=self.serProvider,
                                                            hostname=item,

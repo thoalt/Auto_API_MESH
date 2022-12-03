@@ -92,19 +92,27 @@ def login(request):
     LoginClt = LoginClient()
     cookie = ""
 
-    passGuiDefault = utl.md5_encrypt(cfg.STR_ENCRYPT, "00000006")
+    passGuiDefault = utl.md5_encrypt(cfg.STR_ENCRYPT, cfg.SALT_DEFAULT)
     modeMesh = serialClt.Get_Mode_Mesh()
+    print("************** MODE MESSH *************")
+    print(modeMesh)
     SSIDName = serialClt.Get_SSID_Name(cfg.WIFI_INT_5G)
+    print("************** SSID Name *************")
+    print(SSIDName)
     passGUI = serialClt.Get_Pass_GUI()
     ipAddr = serialClt.Get_IP_Address()
+    print("************** IP ADDRESS *************")
+    print(ipAddr)
 
     if modeMesh == "FACTORY":
         cookie = ClientSes.Open_Sesion_And_Get_Cookie()
         LoginClt.login(cookie)
         meshCreateClt.Create_Mesh_Network_Default(cookie)
 
+    # elif (modeMesh != "FACTORY") \
+    #         and ((SSIDName == cfg.SSID) and (passGUI == passGuiDefault) and (ipAddr == cfg.IP_ADDR_CAP)):
     elif (modeMesh != "FACTORY") \
-            and ((SSIDName == cfg.SSID) and (passGUI == passGuiDefault) and (ipAddr == cfg.IP_ADDR_CAP)):
+         and ((SSIDName == cfg.SSID) and (ipAddr == cfg.IP_ADDR_CAP)):
         cookie = ClientSes.Open_Sesion_And_Get_Cookie()
         LoginClt.login(cookie)
 

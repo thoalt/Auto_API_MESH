@@ -10,7 +10,7 @@ from pages.AdvancePage import AdvDDNSPage
 class Test_DdnsCreate():
     @pytest.fixture(autouse=True, scope="function")
     def set_up(self):
-        self.timeOut = 10
+        self.timeOut = 15
         self.exp = {"code": 0, "msg": "Success", "action": "ddnsView"}
         self.dataLst = ["dyndns.org", "changeip.com", "zoneedit.com", "free.editdns.net", "no-ip.com", "dnsmax.com",
                         "thatip.com", "he.ne", "dnsdynamic.org", "dnsexit.com", "ovh.com", "namecheap.com"]

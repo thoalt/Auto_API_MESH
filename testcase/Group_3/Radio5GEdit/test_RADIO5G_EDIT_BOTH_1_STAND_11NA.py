@@ -83,12 +83,12 @@ class Test_radio5G_Edit():
                 channelGUI_actula_lst.append(channelGUI)
 
                 # Getting via driver
-                bitrate = self.session.get_bitrate(cfg.WIFI_INT_5G)
-                bandwithDriver = self.client5G.Convert_Bitrate_To_Bandwith(standard=self.standard, bitrate=bitrate)
+                # bitrate = self.session.get_bitrate(cfg.WIFI_INT_5G)
+                # bandwithDriver = self.client5G.Convert_Bitrate_To_Bandwith(standard=self.standard, bitrate=bitrate)
                 channelDriver = self.session.get_channel(cfg.WIFI_INT_5G)
                 if channel == 'auto':
                     channelDriver = 'auto'
-                bandwithDriver_actual_lst.append(bandwithDriver)
+                #bandwithDriver_actual_lst.append(bandwithDriver)
                 channelDriver_actula_lst.append(channelDriver)
 
 
@@ -103,5 +103,5 @@ class Test_radio5G_Edit():
         self.radio5GViewClt.assert_val_lst(channelGUI_exp_lst, channelGUI_actula_lst)
 
         # Verify the result Get from Driver
-        self.radio5GViewClt.assert_val_lst(bw_setting_lst, bandwithDriver_actual_lst)
+        #self.radio5GViewClt.assert_val_lst(bw_setting_lst, bandwithDriver_actual_lst)
         self.radio5GViewClt.assert_val_lst(channel_setting_lst, channelDriver_actula_lst)

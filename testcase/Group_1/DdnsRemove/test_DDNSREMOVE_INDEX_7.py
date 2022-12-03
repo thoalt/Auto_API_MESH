@@ -8,7 +8,7 @@ class Test_DdnsRemove():
     @pytest.fixture(autouse=True, scope="function")
     def set_up(self):
         self.timeOut = 2
-        self.exp = {"code": 12, "msg": "Unknown Error"}
+        self.exp = {"code": 11, "msg": "Verify Fail"}
         self.data = [3]
 
         self.ddnsRemoveClt = ddnsRemoveClient()

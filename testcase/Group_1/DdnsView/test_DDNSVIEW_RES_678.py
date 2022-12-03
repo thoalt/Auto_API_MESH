@@ -15,13 +15,14 @@ class Test_ddnsView():
         self.ddnsRevClt.ddns_remove_all(self.cookie)
 
         self.ddnsCreateClt = ddnsCreateEditClient()
-        pload = self.ddnsCreateClt.Create_ddnsCreate_pload(index=1,
-                                                           serviceProvider="ddndns.org.com",
-                                                           hostname="abc.com.vn",
-                                                           username="user_1",
-                                                           password="pass_1")
-        resBody = self.ddnsCreateClt.ddnsCreate(self.cookie, pload).body
-        time.sleep(15)
+        for idx in [0, 1, 2, 3]:
+            pload = self.ddnsCreateClt.Create_ddnsCreate_pload(index=idx,
+                                                               serviceProvider="ddndns.org.com",
+                                                               hostname="abc.com.vn",
+                                                               username="user_" + str(idx),
+                                                               password="pass_" + str(idx))
+            resBody = self.ddnsCreateClt.ddnsCreate(self.cookie, pload).body
+            time.sleep(15)
 
     def test_DDNSVIEW_ACT_1(self):
         time.sleep(self.timeOut)
@@ -33,4 +34,4 @@ class Test_ddnsView():
                                         self.exp['msg'],
                                         self.exp['action'])
 
-        self.ddnsViewClt.assert_val(1, len(result))
+        self.ddnsViewClt.assert_val(4, len(result))

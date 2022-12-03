@@ -1,6 +1,7 @@
 import time
 import pytest
-from APIObject.serviceAPI import ddnsViewClient
+from APIObject.serviceAPI import ddnsViewClient, ddnsRemoveClient, ddnsCreateEditClient
+
 
 @pytest.mark.usefixtures("login")
 class Test_ddnsView():
@@ -10,6 +11,8 @@ class Test_ddnsView():
         self.exp = {"code": 0, "msg": "Success", "action": "ddnsView"}
         self.ddnsViewClt = ddnsViewClient()
 
+        self.ddnsRevClt = ddnsRemoveClient()
+        self.ddnsRevClt.ddns_remove_all(self.cookie)
 
 
     def test_DDNSVIEW_ACT_1(self):
@@ -22,4 +25,4 @@ class Test_ddnsView():
                                         self.exp['msg'],
                                         self.exp['action'])
 
-        self.ddnsViewClt.assert_val(3, len(result))
+        self.ddnsViewClt.assert_val(0, len(result))

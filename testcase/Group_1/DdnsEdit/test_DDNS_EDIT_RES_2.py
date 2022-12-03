@@ -1,6 +1,7 @@
 import time
 import pytest
-from APIObject.serviceAPI import ddnsCreateEditClient
+from APIObject.serviceAPI import ddnsCreateEditClient, ddnsRemoveClient
+
 
 @pytest.mark.usefixtures("login")
 class Test_ddnsCreate():
@@ -15,6 +16,17 @@ class Test_ddnsCreate():
         self.username = "thoalt"
         self.passW = "thoa12345"
 
+        self.ddnsRevClt = ddnsRemoveClient()
+        self.ddnsRevClt.ddns_remove_all(self.cookie)
+
+        self.ddnsCreateClt = ddnsCreateEditClient()
+        pload = self.ddnsCreateClt.Create_ddnsCreate_pload(index=self.idx,
+                                                           serviceProvider="ddndns.org.com",
+                                                           hostname="abc.com.vn",
+                                                           username="user_1",
+                                                           password="pass_1")
+        resBody = self.ddnsCreateClt.ddnsCreate(self.cookie, pload).body
+        time.sleep(15)
 
     def test_ddnsCreate_RES_1(self):
         time.sleep(self.timeOut)

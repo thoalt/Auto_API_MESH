@@ -122,7 +122,6 @@ class ddnsCreateEditClient(BaseClient):
         response = self.request.post(url=self.url, headers=self.headersCurl, cookies=cookies, pload=payload)
         return response
 
-
 class ddnsRemoveClient(BaseClient):
     def __init__(self):
         super().__init__()
@@ -152,12 +151,11 @@ class ddnsRemoveClient(BaseClient):
         resBody = viewClt.ddnsView(cookies).body
         ddnsResult = viewClt.get_result(resBody)
 
-        for idx, item in enumerate(ddnsResult):
-            ddnsIdx = item['index']
+        for idx in range(len(ddnsResult), 0, -1):
+            ddnsIdx = ddnsResult[idx]['index']
             pload = self.Create_ddnsRemove_Pload(index=ddnsIdx)
             response = self.ddnsRemove(cookies=cookies, pload=pload)
             time.sleep(15)
-
 
 
 class portforwardViewClient(BaseClient):

@@ -56,10 +56,10 @@ class Serial_Lib:
         meshModeLine = ""
         meshMode = ""
         cmd = "cat /etc/config/mode_mesh"
-        output = self.Get_Ouput_From_Command(cmd, 5)
+        output = self.Get_Ouput_From_Command(cmd, 25)
         # print(output)
         for idx, line in enumerate(output):
-            # print(line.decode('utf8'))
+            print(line.decode('utf8'))
             if any(mode in line.decode('utf8') for mode in modeLst):
                 meshModeLine = output[idx].decode('utf8')
                 break
