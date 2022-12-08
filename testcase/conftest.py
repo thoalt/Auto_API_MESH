@@ -195,6 +195,22 @@ def login_CAP_GUI(request, driver_setup):
         raise Exception("Login WebGui CAP Fail !!!! \n" + str(exc))
 
 @pytest.fixture(autouse=False, scope="class")
+def login_CAP_GUI_without_return_class(driver_setup):
+    base_url = cfg.CAP_URL
+    username = cfg.USER_GUI
+    password = cfg.PASS_GUI
+    driver: WebDriver = driver_setup
+    try:
+        lp = LoginPage(driver)
+        lp.open_url(base_url)
+        lp.log_in_to_webgui(username, password)
+        driver = lp.driver
+        return driver
+    except Exception as exc:
+        driver.quit()
+        raise Exception("Login WebGui CAP Fail !!!! \n" + str(exc))
+
+@pytest.fixture(autouse=False, scope="class")
 def login_CAP_GUI_with_reset_factory(request, driver_setup):
     # print("START LOGIN")
     serialClt = Serial_Lib()

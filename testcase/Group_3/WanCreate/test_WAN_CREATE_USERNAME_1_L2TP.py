@@ -21,10 +21,10 @@ class Test_Wan_Create():
 
         self.server = "100.100.100.100"
 
-        self.userName = ["e",
-                        "5",
-                        "%",
-                        "?",
+        # self.userName = ["e",
+        #                 "5",
+        #                 "%",
+        self.userName = ["?",
                         "`",
                         "t!",
                         "gh",

@@ -7,11 +7,11 @@ class Test_TraceRoute():
     @pytest.fixture(autouse=True, scope="function")
     def set_up(self):
         self.timeOut = 10
-        self.exp = {"code":0, "msg": "Success", "action":"traceroute", "traceCode": 6}
+        self.exp = {"code":0, "msg": "Success", "action":"traceroute", "traceCode": 3}
         self.host = "8.8.8.8"
         self.traceClt = TracerouteClient()
 
-
+    @pytest.mark.skip(reason="This is Manual Testcase: Traceroute when no internet")
     def test_TRACE_ROUTE_RES_1(self):
         time.sleep(self.timeOut)
         pload = self.traceClt.Create_TraceRoute_Pload(host=self.host)

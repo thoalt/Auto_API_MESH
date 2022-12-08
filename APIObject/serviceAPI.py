@@ -238,6 +238,21 @@ class portforwardCreateEditClient(BaseClient):
         response = self.request.post(url=self.url, headers=self.headersCurl, cookies=cookies, pload=pload)
         return response
 
+    def portForward_Create_Default(self, cookie=None):
+        idx = 0
+        wanIndex = 0
+        protocol = "TCP"
+        startRePort = 1
+        ipAddr = "192.168.1.5"
+        startLoPort = 2
+        serviceName = "Portforward_Default"
+
+        pload = self.Create_portforwardCreate_pload(ruleIndex=idx, wanIndex=wanIndex,
+                                                    protocol=protocol, startRemotePort=startRePort,
+                                                    ipAddr=ipAddr, startLocalPort=startLoPort,
+                                                    serviceName=serviceName)
+        respone = self.portforwardCreateEdit(cookies=cookie, pload=pload)
+        time.sleep(60)
 
 class portforwardRemoveClient(BaseClient):
     def __init__(self):

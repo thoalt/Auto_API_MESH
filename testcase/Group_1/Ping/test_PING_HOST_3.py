@@ -14,7 +14,7 @@ class Test_Ping():
     @pytest.fixture(autouse=True, scope="function")
     def set_up(self):
         self.timeOut = 5
-        self.exp = {"code": 0, "msg": "Success", "action": "ping"}
+        self.exp = {"code": 11, "msg": "Verify Fail"}
         self.host = "8.8.8.8"
         self.data = ["8.8.8.8.8"]
 
@@ -30,5 +30,4 @@ class Test_Ping():
 
         self.PingClt.assert_ping_lst(resBody_lst,
                                     self.exp['code'],
-                                    self.exp['msg'],
-                                    self.exp['action'])
+                                    self.exp['msg'])

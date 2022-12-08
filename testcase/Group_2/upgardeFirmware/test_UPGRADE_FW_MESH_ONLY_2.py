@@ -11,8 +11,8 @@ class Test_Wan_Create():
         self.exp = {"code": 0, "msg": "Success"}
         self.upFWClt = UpdateFWClient()
         self.mac = cfg.MRE1_MAC
-        self.fwName = "EW12SX_1.5.2.53.tar.gz"
-        self.md5 = "4f8f0a09be9429082055d4e9d05d570a"
+        self.fwName = "EW12_EW12ST000U1002.tar.gz"
+        self.md5 = "1ad7f4f40ebe8490c7df47ea8fe199e9"
 
     # @pytest.mark.skip(reason="This is Manual Testcase")
     def test_UPGRADE_FW_MESH_ONLY_1(self):

@@ -19,4 +19,3 @@ class Test_DeviceInfoView():
                                         self.exp['code'],
                                         self.exp['msg'],
                                         self.exp['action'])
-        self.devInf.valid_schema_resul(resBody, schema=scTmp.schema_deviceInfoView_result)

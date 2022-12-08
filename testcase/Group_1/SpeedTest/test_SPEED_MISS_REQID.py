@@ -19,14 +19,13 @@ class Test_SpeedTest():
 
         self.SpeedtClt = SpeedTestClient()
         pload = self.SpeedtClt.Create_SpeedTest_Pload()
-        self.data = [self.SpeedtClt.Remove_Key_In_Pload(pload, 'requestId')]
+        self.data = self.SpeedtClt.Remove_Request_ID_In_Pload(dictBefore=pload)
 
     def test_SPEED_ACT_2(self):
         time.sleep(self.timeOut)
         resBody_Lst = []
         for item in self.data:
-
-            resBody = self.SpeedtClt.speedtest(cookies=self.cookie, pload=pload).body
+            resBody = self.SpeedtClt.speedtest(cookies=self.cookie, pload=item).body
             resBody_Lst.append(resBody)
         self.SpeedtClt.assert_speedtest_lst(resBody_Lst,
                                     self.exp['code'],

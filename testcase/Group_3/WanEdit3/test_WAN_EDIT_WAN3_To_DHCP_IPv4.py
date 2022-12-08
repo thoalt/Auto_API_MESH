@@ -42,26 +42,32 @@ class Test_Wan_Create():
 
         self.wanEditClt = WanCreateEditClient()
         self.wanViewClt = WanViewConfigClient()
-        self.wanViewClt.wanViewConfig(self.cookie)
+
+        self.wp = SettingWANPage(self.driver)
+        self.wp.refresh()
 
         self.wanEditClt.Create_DHCP_Dual(cookies=self.cookie,
                                          index=1,
                                          vlanId=99)
 
         time.sleep(30)
+        self.wp.refresh()
         self.wanEditClt.Create_DHCP_IPv4(cookies=self.cookie,
                                          index=2,
                                          vlanId=999)
 
         time.sleep(30)
+        self.wp.refresh()
         self.wanEditClt.Create_PPPoE_DUAL(cookies=self.cookie,
-                                         index=3,
-                                         vlanID=89,
-                                         userName=self.userName_PPPoE,
-                                         passW=self.passW_PPPoE,
-                                         dftRoute=self.defaultRoute)
+                                          index=3,
+                                          vlanID=89,
+                                          userName=self.userName_PPPoE,
+                                          passW=self.passW_PPPoE,
+                                          dftRoute=self.defaultRoute)
+        time.sleep(30)
+        self.wp.refresh()
 
-        self.wp = SettingWANPage(self.driver)
+        self.wanViewClt.wanViewConfig(self.cookie)
 
     def test_WAN_EDIT_RES_1(self):
         time.sleep(self.timeOut)

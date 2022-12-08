@@ -19,6 +19,7 @@ class Test_Ping():
 
         self.PingClt = PingClient()
 
+    @pytest.mark.skip(reason="This is Manual Testcase: Ping when no internet")
     def test_PING_RES_RESULT_2(self):
 
         time.sleep(self.timeOut)

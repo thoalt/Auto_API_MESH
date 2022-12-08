@@ -66,8 +66,8 @@ class Test_Wan_Create():
         time.sleep(30)
         resBody = self.wanViewClt.wanViewConfig(self.cookie).body
         self.wanViewClt.assert_result_WAN0(resBody,
-                                      wanType= self.wanTypeAfter,
-                                      ipVer= self.ipVerAfter,
+                                      wanType=self.wanTypeAfter,
+                                      ipVer=self.ipVerAfter,
                                       userName=self.userName_PPPoE,
                                       passW=self.passW_PPPoE,
                                       dftRoute=self.defaultRoute)

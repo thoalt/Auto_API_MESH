@@ -119,6 +119,7 @@ class WanViewConfigClient(BaseClient):
                       userName=None, passW=None, server=None
                       ):
         result = self.get_result(resBody)[0]
+        print(result)
         with soft_assertions():
             if wanType is not None:
                 assert_that(result['wanType'], description="WAN TYPE").is_equal_to(wanType)
@@ -686,8 +687,9 @@ class WanRemoveClient(BaseClient):
             for idx in wanID_lst:
                 payload = self.Create_WanRemove_Pload(wanIndex=idx)
                 response = self.wanRemove(cookies=cookies, pload=payload)
-                time.sleep(45)
+                time.sleep(5)
         del viewClt
+        time.sleep(30)
 
 class WanViewStatusClient(BaseClient):
     def __init__(self):

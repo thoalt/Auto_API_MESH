@@ -8,7 +8,7 @@ class Test_DeviceInfoView():
     @pytest.fixture(autouse=True, scope="function")
     def set_up(self):
         self.timeOut = 610
-        self.exp = {"code": 0, "msg": "Success"}
+        self.exp = {"code": 15, "msg": "Session Timeout"}
         self.passwordedit = passwordEditClient()
         self.passWord = "VNPT@88Tech"
 

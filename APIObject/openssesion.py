@@ -54,7 +54,12 @@ class openssesionClient(BaseClient):
             payload = pload
 
         response = self.request.post(url=self.url, headers=self.headersCurl, pload=payload)
-        return payload['requestId'], response
+
+        if 'requestId' in payload:
+            requestID = payload['requestId']
+        else:
+            requestID = 0
+        return requestID, response
 
     def Get_SessionID(self, resHeaders):
         """

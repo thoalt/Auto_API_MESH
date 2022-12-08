@@ -18,5 +18,4 @@ class Test_DeviceInfoView():
         resBody = self.netInf.networkinfoView(self.cookie).body
         self.netInf.assert_response(resBody,
                                         self.exp['code'],
-                                        self.exp['msg'],
-                                        self.exp['action'])
+                                        self.exp['msg'])

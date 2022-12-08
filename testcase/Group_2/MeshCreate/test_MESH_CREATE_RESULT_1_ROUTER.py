@@ -91,6 +91,6 @@ class Test_Mesh_Create():
             # self.serialClt.Close_Serial_Connect()
         except Exception as exc:
             print(exc)
-            self.serialClt.Reset_Factory()
-            self.serialClt.Close_Serial_Connect()
+            # self.serialClt.Reset_Factory()
+            #             # self.serialClt.Close_Serial_Connect()
             assert False

@@ -7,7 +7,7 @@ class Test_TraceRoute():
     @pytest.fixture(autouse=True, scope="function")
     def set_up(self):
         self.timeOut = 2
-        self.exp = {"code": 0, "msg": "Success", "action": "traceroute", "traceCode": 6}
+        self.exp = {"code": 11, "msg": "Verify Fail"}
         self.data = [" 8.8.8.8", "8.8 .8.8", "8.8.8.8 ", " google.com.vn", "google. com.vn", "google.com.vn "]
         self.traceClt = TracerouteClient()
 
@@ -21,7 +21,4 @@ class Test_TraceRoute():
             resBody_lst.append(resBody)
         self.traceClt.assert_response_list(resBody_lst,
                                             self.exp['code'],
-                                            self.exp['msg'],
-                                            self.exp['action'])
-        self.traceClt.assert_trace_result_lst(resBody_lst, traceCode=self.exp['traceCode'])
-
+                                            self.exp['msg'])

@@ -66,6 +66,7 @@ class Test_Wan_Create():
         )
         pload = self.wanEditClt.Create_WanCreate_Edit_DHCP_pload(
             pload=ploadCom,
+            vlanID=self.vlanIDAfter,
             IPVer=self.ipVerAfter
         )
 

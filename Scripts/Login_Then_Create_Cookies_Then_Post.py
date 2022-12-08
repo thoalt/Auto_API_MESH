@@ -233,10 +233,10 @@ if __name__ == '__main__':
     print("************* Other API *************")
     time.sleep(5)
     request = {
-    "action": "radio5GEdit",
-    "requestId": 4650,
-    "channel": "36",
-    "bandwidth": "20MHz"
+    "action": "radio2.4GEdit",
+    "requestId": 3646,
+    "channel": "auto",
+    "bandwidth": "40MHz"
 }
 
     resPonse = post(url=url_Agent, headers=headersCurl, cookies=cookie, pload=request)

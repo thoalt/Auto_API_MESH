@@ -49,9 +49,9 @@ class Test_Wan_Create():
         resBody = self.wanViewClt.wanViewConfig(self.cookie).body
 
         self.wanViewClt.assert_result_WAN1(resBody,
-                                           self.wanType,
-                                           self.vlanID,
-                                           self.IPVer,
+                                            wanType=self.wanType,
+                                           vlanID=self.vlanID,
+                                           ipVer=self.IPVer,
                                            userName=self.userName,
                                            passW=self.passW)
 

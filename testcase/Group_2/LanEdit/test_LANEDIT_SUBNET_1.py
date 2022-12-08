@@ -13,7 +13,7 @@ class Test_Lan_Edit():
         self.ipAddr = '192.168.66.1'
         self.netMark = ['255.255.255.0', '255.255.0.0', '255.0.0.0']
 
-    @pytest.mark.skip(reason="This is Manual Testcase")
+    # @pytest.mark.skip(reason="This is Manual Testcase")
     def test_LANEDIT_RES_1(self):
         for item in self.netMark:
             time.sleep(self.timeOut)

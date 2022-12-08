@@ -1,6 +1,6 @@
 import time
 import pytest
-from APIObject.serviceAPI import portforwardRemoveClient
+from APIObject.serviceAPI import portforwardRemoveClient, portforwardCreateEditClient
 
 @pytest.mark.usefixtures("login")
 class Test_portRemove():
@@ -8,9 +8,11 @@ class Test_portRemove():
     def set_up(self):
         self.timeOut = 5
         self.exp = {"code": 0, "msg": "Success", "action": "portforwardRemove"}
+        self.portCreateClt = portforwardCreateEditClient()
         self.portRemoveClt = portforwardRemoveClient()
         self.idx = 0
 
+        self.portCreateClt.portForward_Create_Default(cookie=self.cookie)
 
     def test_portRemove_ACT_1(self):
         time.sleep(self.timeOut)
