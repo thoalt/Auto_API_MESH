@@ -24,7 +24,7 @@ class Test_Mesh_Create():
         self.meshViewClt = meshViewClient()
 
 
-    # @pytest.mark.skip(reason="This is Manual Testcase")
+    @pytest.mark.skip(reason="This is Manual Testcase")
     def test_MESH_CREATE_RES_1(self):
         # View Mesh
         resBody = self.meshViewClt.meshView(self.cookie).body

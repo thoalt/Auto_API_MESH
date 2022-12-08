@@ -36,7 +36,7 @@ class Test_Mesh_Create():
         if modeMesh != "FACTORY":
             self.serialClt.Reset_Factory()
 
-    # @pytest.mark.skip(reason="This is Manual Testcase")
+    @pytest.mark.skip(reason="This is Manual Testcase")
     def test_MESH_CREATE_RES_1(self, driver_setup):
         try:
             ### Login After Reset Factory
