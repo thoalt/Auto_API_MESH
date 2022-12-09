@@ -12,7 +12,7 @@ class Test_Reset():
         self.resetClt = resetClient()
         self.data = cfg.CAP_MAC
 
-    # @pytest.mark.skip(reason="This is Manual Testcase")
+    @pytest.mark.skip(reason="This is Manual Testcase")
     def test_RESET_ACT_1(self):
         time.sleep(self.timeOut)
         pload = self.resetClt.Create_reset_Pload(macList=self.data)

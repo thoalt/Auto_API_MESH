@@ -13,7 +13,7 @@ class Test_Reboot():
         self.mac = cfg.CAP_MAC
 
 
-    @pytest.mark.success
+
     def test_REBOOT_ACT_1(self):
         time.sleep(self.timeOut)
         pload = self.rebootClt.Create_Reboot_Pload(macList=self.mac)
