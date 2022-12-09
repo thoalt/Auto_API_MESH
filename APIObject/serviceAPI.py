@@ -278,8 +278,11 @@ class portforwardRemoveClient(BaseClient):
         response = self.request.post(url=self.url, headers=self.headersCurl, cookies=cookies, pload=payload)
         return response
 
-    def remove_all_port(self, cookies):
-        for idx in range(0, 8):
+    def remove_all_port(self,  cookies=None):
+        viewClt = portforwardViewClient()
+        resBody = viewClt.portforwardView(cookies).body
+        portResult = viewClt.get_result(resBody)
+        for idx in range(len(portResult), 0, -1):
             pload = self.Create_portforwardRemove_Pload(ruleIndex=0)
             self.portforwardRemove(cookies=cookies, pload=pload)
-            time.sleep(1)
+            time.sleep(15)

@@ -13,8 +13,7 @@ class Test_Reboot():
         self.rebootClt = rebootClient()
         self.data = cfg.CAP_MAC + "," + cfg.MRE1_MAC
 
-
-
+    @pytest.mark.skip(reason="This is Manual Testcase")
     def test_REBOOT_ACT_1(self):
         time.sleep(self.timeOut)
         pload = self.rebootClt.Create_Reboot_Pload(macList=self.data)
