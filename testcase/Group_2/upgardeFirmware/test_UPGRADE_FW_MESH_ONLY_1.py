@@ -14,7 +14,7 @@ class Test_Wan_Create():
         self.fwName = "EW12_EW12ST000U1002.tar.gz"
         self.md5 = "1ad7f4f40ebe8490c7df47ea8fe199e9"
 
-    # @pytest.mark.skip(reason="This is Manual Testcase")
+    @pytest.mark.skip(reason="This is Manual Testcase")
     def test_UPGRADE_FW_MESH_ONLY_1(self):
         time.sleep(self.timeOut)
         pload = self.upFWClt.Create_UpdateFW_Pload(
@@ -27,5 +27,6 @@ class Test_Wan_Create():
         self.upFWClt.assert_response(resBody,
                                        self.exp['code'],
                                        self.exp['msg'])
+        FWName = self.fwName.split('.')[0]
 
 

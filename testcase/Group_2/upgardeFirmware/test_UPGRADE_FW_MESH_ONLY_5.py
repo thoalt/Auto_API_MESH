@@ -14,7 +14,7 @@ class Test_Wan_Create():
         self.fwName = "EW12SX_1.5.2.53.tar.gz"
         self.md5 = "4f8f0a09be9429082055d4e9d05d570a"
 
-    # @pytest.mark.skip(reason="This is Manual Testcase")
+    @pytest.mark.skip(reason="This is Manual Testcase")
     def test_UPGRADE_FW_MESH_ONLY_1(self):
         time.sleep(self.timeOut)
         pload = self.upFWClt.Create_UpdateFW_Pload(
