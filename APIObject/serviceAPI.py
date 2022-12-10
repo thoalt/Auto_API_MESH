@@ -283,6 +283,7 @@ class portforwardRemoveClient(BaseClient):
         resBody = viewClt.portforwardView(cookies).body
         portResult = viewClt.get_result(resBody)
         for idx in range(len(portResult), 0, -1):
-            pload = self.Create_portforwardRemove_Pload(ruleIndex=0)
+            portIdx = portResult[idx]['ruleIndex']
+            pload = self.Create_portforwardRemove_Pload(ruleIndex=portIdx)
             self.portforwardRemove(cookies=cookies, pload=pload)
             time.sleep(15)
