@@ -152,7 +152,7 @@ class ddnsRemoveClient(BaseClient):
         ddnsResult = viewClt.get_result(resBody)
 
         for idx in range(len(ddnsResult), 0, -1):
-            ddnsIdx = ddnsResult[idx]['index']
+            ddnsIdx = ddnsResult[idx-1]['index']
             pload = self.Create_ddnsRemove_Pload(index=ddnsIdx)
             response = self.ddnsRemove(cookies=cookies, pload=pload)
             time.sleep(15)
@@ -282,8 +282,9 @@ class portforwardRemoveClient(BaseClient):
         viewClt = portforwardViewClient()
         resBody = viewClt.portforwardView(cookies).body
         portResult = viewClt.get_result(resBody)
+        # print(portResult)
         for idx in range(len(portResult), 0, -1):
-            portIdx = portResult[idx]['ruleIndex']
+            portIdx = portResult[idx-1]['ruleIndex']
             pload = self.Create_portforwardRemove_Pload(ruleIndex=portIdx)
             self.portforwardRemove(cookies=cookies, pload=pload)
             time.sleep(15)
