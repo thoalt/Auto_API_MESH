@@ -32,7 +32,7 @@ class Test_Mesh_Create():
 
         self.repeatDct = {
             "reSSID": "1111_AP_Wireless_Test_5GHz",
-            "reAuthen": "password",
+            "reAuthen": AUTHEN_MODE.PASSWORD,
             "rePass": "1234567890"
         }
 

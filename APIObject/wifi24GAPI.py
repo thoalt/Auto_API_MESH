@@ -13,24 +13,24 @@ from Config import config as cfg
 from base.APILib import API_lib
 
 class CHANNEL_API():
-    C_AUTO = "auto"
-    C_1 = "1"
-    C_2 = "2"
-    C_3 = "3"
-    C_4 = "4"
-    C_5 = "5"
-    C_6 = "6"
-    C_7 = "7"
-    C_8 = "8"
-    C_9 = "9"
-    C_10 = "10"
-    C_11 = "11"
+    C_AUTO = 0
+    C_1 = 1
+    C_2 = 2
+    C_3 = 3
+    C_4 = 4
+    C_5 = 6
+    C_6 = 6
+    C_7 = 7
+    C_8 = 8
+    C_9 = 9
+    C_10 = 10
+    C_11 = 11
 
 class BAND_WITH_API():
-    B_20 = "20MHz"
-    B_40 = "40MHz"
-    B_20_40 = "20/40MHz"
-    B_80 = "80MHz"
+    B_20 = 0  # "20MHz"
+    B_40 = 1  # "40MHz"
+    B_20_40 = 2  # "20/40MHz"
+    B_80 = 3    # "80MHz"
 
 
 @dataclass

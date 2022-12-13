@@ -96,9 +96,11 @@ class Serial_Lib:
         output = self.Get_Ouput_From_Command(cmd, 5)
 
         for idx, line in enumerate(output):
+            # print(line.decode('utf8'))
             if "ESSID:" in line.decode('utf8'):
+                # print(ssidNameLine)
                 ssidNameLine = output[idx].decode('utf8')
-                break
+                # break
         ssidName = ssidNameLine.split("ESSID:")[1].split('"')[1]
         # print("********* ssidName ***********")
         # print(ssidName)

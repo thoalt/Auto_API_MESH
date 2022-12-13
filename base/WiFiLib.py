@@ -194,34 +194,34 @@ class Wifi_lib:
     def Convert_Bitrate_To_Bandwith(self, standard, bitrate):
         bandW = ''
         if standard == "11g" and bitrate == "54":
-            bandW = "20MHz"
+            bandW = 0 #"20MHz"
 
         elif standard == "11ng" and bitrate == "144":
-            bandW = "20MHz"
+            bandW = 0 #"20MHz"
 
         elif standard == "11ng" and bitrate == "300":
-            bandW = "20/40MHz"
+            bandW = 2 #"20/40MHz"
 
         elif standard == "11a" and bitrate == "54":
-            bandW = "20MHz"
+            bandW = 0 #"20MHz"
 
         elif standard == "11na" and bitrate == "144":
-            bandW = "20MHz"
+            bandW = 0 #"20MHz"
 
         elif standard == "11na" and bitrate == "300":
-            bandW = "40MHz"
+            bandW = 1 #"40MHz"
 
         elif standard == "11ac" and bitrate == "360":
-            bandW = "20MHz"
+            bandW = 0 #"20MHz"
 
         elif standard == "11ac" and bitrate == "400":
-            bandW = "40MHz"
+            bandW = 1 #"40MHz"
 
         elif standard == "11ac" and bitrate == "867":
-            bandW = "80MHz"
+            bandW = 3 #"80MHz"
 
         elif standard == "11ac" and bitrate == "1730":
-            bandW = "160MHz"
+            bandW = 4 #"160MHz"
 
         print("***********BIT RATE **********")
         print(bitrate)

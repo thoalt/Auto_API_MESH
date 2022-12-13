@@ -34,7 +34,7 @@ class Test_Mesh_Create():
 
         self.repeatDct = {
             "reSSID": "1111_AP_Wireless_Test_5GHz",
-            "reAuthen": "open"
+            "reAuthen": AUTHEN_MODE.OPEN
         }
 
         modeMesh = self.serialClt.Get_Mode_Mesh()

@@ -20,13 +20,8 @@ class MESH_MODE():
     REPEATER = 2
 
 class AUTHEN_MODE():
-    OPEN = "OPEN"
-    WF5_WPA_PSK = "WPA-PSK"
-    WF5_WPA2_PSK = "WPA2-PSK"
-    WF5_MIX_MODE = "WPA-PSK/WPA2-PSK Mixed Mode"
-    WF6_WPA3_SAE = "WPA3-SAE"
-    WF6_MIX_MODE = "WPA2-PSK/WPA3-SAE Mixed Mode"
-    WF6_WPA3_OWE = "WPA3-OWE"
+    OPEN = "open"
+    PASSWORD = "password"
 
 
 class meshViewClient(BaseClient):
