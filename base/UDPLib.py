@@ -7,8 +7,6 @@ class UDP_Lib():
     def __init__(self):
         self.buffersize = 1024
 
-    # def Create_Discovery_Payload(self, action=None, clientMac=None, reqID=None):
-    #
     def Create_UDP_Client_Socket(self):
         # Create Socket UDP
         UDP_Client = socket.socket(family=socket.AF_INET,
@@ -36,8 +34,7 @@ class UDP_Lib():
             size = self.buffersize
         else:
             size = buffsize
-        print(server)
-        print(Client)
+
         Client.sendto(byteToSend, server)
         msgReceived = json.loads(Client.recvfrom(size)[0])
         print("\n ****************** DISCOVERY RESPONSE *****************")

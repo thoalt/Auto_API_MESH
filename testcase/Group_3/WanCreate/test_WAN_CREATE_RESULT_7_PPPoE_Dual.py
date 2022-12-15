@@ -20,7 +20,7 @@ class Test_Wan_Create():
         self.wanType = WAN_TYPE().PPPoE
         self.vlanID = 10
         self.IPVer = IP_VER().DUAL
-        self.defRoute = True
+        self.defRoute = False
 
         self.userName = "UserPPPoE"
         self.passW = "PassPPPoE"

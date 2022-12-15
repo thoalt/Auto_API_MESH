@@ -1,10 +1,7 @@
 import time
 
 import pytest
-from assertpy import assert_that
-
 from APIObject.logout import LogoutClient
-from Utilities import Utility as utl
 
 @pytest.mark.usefixtures("login")
 class Test_Login():

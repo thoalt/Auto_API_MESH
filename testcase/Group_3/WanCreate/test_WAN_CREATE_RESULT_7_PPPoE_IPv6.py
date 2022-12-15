@@ -37,7 +37,7 @@ class Test_Wan_Create():
             IPVer=self.IPVer,
             userName=self.userName,
             passW=self.passW,
-            dftRoute=True
+            dftRoute=False
         )
 
         resBody = self.wanCreateClt.wanCreateEdit(self.cookie, pload=pload).body
