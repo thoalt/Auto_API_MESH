@@ -1,5 +1,7 @@
 import time
 import pytest
+from assertpy import soft_assertions
+
 from APIObject.wifi24GAPI import radio24GEditClient, radio24GViewClient
 from APIObject.wifi24GAPI import CHANNEL_API, BAND_WITH_API
 from pages.SettingWirelessPage import WirelessRadioPage, CHANNEL_GUI, BAND_WITH_GUI
@@ -82,12 +84,13 @@ class Test_radio24G_Edit():
                 channel = 'auto'
 
             channelDriver_actual_lst.append(channel)
-        # Verify the result Get from API
-        self.radio2GViewClt.assert_result_lst(resBody_lst,
-                                       channelLst=self.channel_API_lst)
+        with soft_assertions():
+            # Verify the result Get from API
+            self.radio2GViewClt.assert_result_lst(resBody_lst,
+                                           channelLst=self.channel_API_lst)
 
-        # Verify the result Get from GUI
-        self.radio2GViewClt.assert_val_lst(self.channel_GUI_exp, channelGUI_actual_lst)
+            # Verify the result Get from GUI
+            self.radio2GViewClt.assert_val_lst(self.channel_GUI_exp, channelGUI_actual_lst)
 
-        # Verify the result Get from Driver
-        self.radio2GViewClt.assert_val_lst(self.channel_API_lst, channelDriver_actual_lst)
+            # Verify the result Get from Driver
+            self.radio2GViewClt.assert_val_lst(self.channel_API_lst, channelDriver_actual_lst)
