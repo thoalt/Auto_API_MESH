@@ -281,6 +281,7 @@ class WirelessRadioPage(WirelessPage):
     def navigate_to_radio_2G_setting_page(self):
         self.navigate_to_radio_2G_page()
         self.click_Btn_Edit_Radio2G()
+        time.sleep(1)
 
     def navigate_to_radio_5G_page(self):
         self.click_Setting_Cap()
@@ -294,6 +295,7 @@ class WirelessRadioPage(WirelessPage):
     def navigate_to_radio_5G_setting_page(self):
         self.navigate_to_radio_5G_page()
         self.click_Btn_Edit_Radio5G()
+        time.sleep(1)
 
     def setting_Radio(self, bandW=None, standard=None, channel=None, bandwith=None, txPower=None, clickApply=True):
         if bandW == '2G':

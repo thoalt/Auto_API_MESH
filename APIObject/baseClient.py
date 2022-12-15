@@ -39,7 +39,7 @@ class BaseClient:
     def assert_val_lst(self, expecVal_Lst, actualVal_Lst):
         with soft_assertions():
             for idx, item in enumerate(expecVal_Lst):
-                assert_that(expecVal_Lst[idx], description=str(item)).is_equal_to(actualVal_Lst[idx])
+                assert_that(str(expecVal_Lst[idx]), description=str(item)).is_equal_to(str(actualVal_Lst[idx]))
 
     def assert_response(self, resBody, status, msg, action=None):
         with soft_assertions():
