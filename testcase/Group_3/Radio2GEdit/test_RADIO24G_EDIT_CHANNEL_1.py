@@ -19,31 +19,38 @@ class Test_radio24G_Edit():
         self.client2G = Wifi_lib()
         self.session = SSH_Lib(SSHShell=self.SSHShell)
 
-        self.channel_API_lst = [CHANNEL_API.C_AUTO,
-                        CHANNEL_API.C_1,
-                        CHANNEL_API.C_2,
+        # self.channel_API_lst = [CHANNEL_API.C_AUTO,
+        #                 CHANNEL_API.C_1,
+        #                 CHANNEL_API.C_2,
+        #                 CHANNEL_API.C_3,
+        #                 CHANNEL_API.C_4,
+        #                 CHANNEL_API.C_5,
+        #                 CHANNEL_API.C_6,
+        #                 CHANNEL_API.C_7,
+        #                 CHANNEL_API.C_8,
+        #                 CHANNEL_API.C_9,
+        #                 CHANNEL_API.C_10,
+        #                 CHANNEL_API.C_11]
+        #
+        # self.channel_GUI_exp = [CHANNEL_GUI.C_AUTO,
+        #                         CHANNEL_GUI.C_1,
+        #                         CHANNEL_GUI.C_2,
+        #                         CHANNEL_GUI.C_3,
+        #                         CHANNEL_GUI.C_4,
+        #                         CHANNEL_GUI.C_5,
+        #                         CHANNEL_GUI.C_6,
+        #                         CHANNEL_GUI.C_7,
+        #                         CHANNEL_GUI.C_8,
+        #                         CHANNEL_GUI.C_9,
+        #                         CHANNEL_GUI.C_10,
+        #                         CHANNEL_GUI.C_11]
+        self.channel_API_lst = [
                         CHANNEL_API.C_3,
-                        CHANNEL_API.C_4,
-                        CHANNEL_API.C_5,
-                        CHANNEL_API.C_6,
-                        CHANNEL_API.C_7,
-                        CHANNEL_API.C_8,
-                        CHANNEL_API.C_9,
-                        CHANNEL_API.C_10,
-                        CHANNEL_API.C_11]
+                        CHANNEL_API.C_4]
 
-        self.channel_GUI_exp = [CHANNEL_GUI.C_AUTO,
-                                CHANNEL_GUI.C_1,
-                                CHANNEL_GUI.C_2,
+        self.channel_GUI_exp = [
                                 CHANNEL_GUI.C_3,
-                                CHANNEL_GUI.C_4,
-                                CHANNEL_GUI.C_5,
-                                CHANNEL_GUI.C_6,
-                                CHANNEL_GUI.C_7,
-                                CHANNEL_GUI.C_8,
-                                CHANNEL_GUI.C_9,
-                                CHANNEL_GUI.C_10,
-                                CHANNEL_GUI.C_11]
+                                CHANNEL_GUI.C_4]
 
         self.bandWith = BAND_WITH_API.B_20
 
