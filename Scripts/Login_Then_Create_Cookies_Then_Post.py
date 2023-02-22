@@ -230,14 +230,14 @@ if __name__ == '__main__':
     # reqHeaders = {"Cookie": cookie}
     # print("FW_PATH = " + FW_Path)
 
-    print("************* Other API *************")
-    time.sleep(5)
-    request = {
-    "action": "radio2.4GEdit",
-    "requestId": 3646,
-    "channel": "auto",
-    "bandwidth": "40MHz"
-}
+#     print("************* Other API *************")
+#     time.sleep(5)
+#     request = {
+#     "action": "radio2.4GEdit",
+#     "requestId": 3646,
+#     "channel": "auto",
+#     "bandwidth": "40MHz"
+# }
 
-    resPonse = post(url=url_Agent, headers=headersCurl, cookies=cookie, pload=request)
+    # resPonse = post(url=url_Agent, headers=headersCurl, cookies=cookie, pload=request)
     time.sleep(5)
