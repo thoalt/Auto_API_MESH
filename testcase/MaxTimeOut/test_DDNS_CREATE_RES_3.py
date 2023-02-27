@@ -19,7 +19,7 @@ class Test_ddnsCreate():
         self.username = "thoalt"
         self.passW = "thoa12345"
 
-
+    @pytest.mark.skip(reason="Testcase for Max TimeOut, Not need this round")
     def test_ddnsCreate_RES_1(self):
         time.sleep(self.timeOut)
         pload = self.ddnsCreateClt.Create_ddnsCreate_pload(index=self.idx,

@@ -47,8 +47,8 @@ class API_lib:
         c.close()
 
         resHeaders = rawHeaders.getvalue().decode('UTF-8')
-        # print("***************** HEADER **********")
-        # print(resHeaders)
+        print("***************** HEADER **********")
+        print(resHeaders)
         resBody = rawBody.getvalue().decode('UTF-8')
         # print("***************** RESPONSE BEFORE LOAD **********")
         # print(resBody)

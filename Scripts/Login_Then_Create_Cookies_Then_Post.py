@@ -14,7 +14,7 @@ CLIENT_MAC = "00:0E:C6:59:A1:A6"
 # SALT = "00000000"
 SALT = "D2...40."
 STR_ENCRYPT = "VNPT"
-SERIAL = "10129372686AF28"
+SERIAL = "129294716978795"
 # SERIAL = "1292922130B4454"
 # SERIAL = "VNPT031062B1"
 # SERIAL = "1280909164648DA"
@@ -93,8 +93,8 @@ def post(url, headers=None, verify=False, cookies=None, pload=None):
     print("***************** HEADER **********")
     print(resHeaders)
     resBody = rawBody.getvalue().decode('UTF-8')
-    # print("***************** RESPONSE BEFORE LOAD **********")
-    # print(resBody)
+    print("***************** RESPONSE BEFORE LOAD **********")
+    print(resBody)
 
     resBody = json.loads(resBody)
     print("***************** RESPONSE **********")
