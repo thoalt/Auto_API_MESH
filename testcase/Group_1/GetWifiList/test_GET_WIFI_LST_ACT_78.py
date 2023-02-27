@@ -10,7 +10,7 @@ class Test_getWifi():
         self.exp = {"code": 8, "msg": "Invalid Action"}
 
         self.getWifiClt = getWifiListClient()
-        self.data = ["“", "‘", "|", "/", "\\", ",", ";", ":", "&", "<", ">", "^", "*", "?", "ă", "â",
+        self.data = ["“", "‘", "|", "/", "\\", ",", ";", ":", "&", "<", ">","!", "^", "*", "?", "ă", "â",
                      "đ", "ê", "ô", "ơ", "ư", "á", "à", "ạ", "ả", "ã",
                     "Ă", "Â", "Đ", "Ê", "Ô", "Ơ", "Ư", "Á", "À", "Ạ", "Ả", "Ã", "getWifiList ",
                      " getWifiList", "get WifiList"]
