@@ -1,4 +1,3 @@
-import time
 import pytest
 
 from APIObject.deviceInfoView import deviceInfoViewClient

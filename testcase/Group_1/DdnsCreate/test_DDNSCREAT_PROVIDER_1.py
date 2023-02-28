@@ -9,9 +9,9 @@ class Test_DdnsCreate():
     def set_up(self):
         self.timeOut = 5
         self.exp = {"code": 0, "msg": "Success", "action": "ddnsCreat"}
-        self.data = ["dnsdynamic.org"]
-        #"dyndns.org", "changeip.com", "zoneedit.com", "free.editdns.net", "no-ip.com",
-        #"dnsmax.com", "thatip.com", "he.ne", "dnsdynamic.org", "dnsexit.com", "ovh.com", "namecheap.com"
+        #self.data = ["dnsdynamic.org"]
+        self.data = ["no-ip.com", "dyndns.org", "tzo.net", "zoneedit.com", "dhs.org", "hn.org", "ez-ip.net",
+        "easydns.com"]
 
         self.ddnsRevClt = ddnsRemoveClient()
         self.ddnsRevClt.ddns_remove_all(self.cookie)
