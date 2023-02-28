@@ -171,8 +171,8 @@ def driver_setup(browser):
         driver = webdriver.Edge(executable_path=EdgeChromiumDriverManager().install())
     else:
         # driver = webdriver.Chrome(executable_path="E:\Auto_WorkingTesting\Auto_Project_WF6\Drivers\chromedriver.exe")
-        driver = webdriver.Chrome(executable_path=gld.DRIVER_FOLDER + "chromedriver.exe")
-        # driver = webdriver.Chrome(executable_path=ChromeDriverManager().install())
+        #driver = webdriver.Chrome(executable_path=gld.DRIVER_FOLDER + "chromedriver.exe")
+        driver = webdriver.Chrome(executable_path=ChromeDriverManager().install())
     driver.implicitly_wait(10)
     return driver
 
