@@ -28,17 +28,17 @@ MRE2_MAC = ""
 
 # BSSID INFORMATION
 BSSIDList_MeshOnly = [
-    "A4:F4:C2:0B:44:55",
-    "A4:F4:C2:0B:44:56",
-    "A4:F4:C2:0B:44:69",
-    "A4:F4:C2:0B:44:6A"
+    "A4:F4:C2:0B:42:03",
+    "A4:F4:C2:0B:42:04",
+    "CC:71:90:86:9F:9F",
+    "CC:71:90:86:9F:A0"
 ]
 
 BSSIDList_MeshONT = [
-    "A4:F4:C2:0B:44:55",
-    "A4:F4:C2:0B:44:56",
-    "A4:F4:C2:0B:44:69",
-    "A4:F4:C2:0B:44:6A"
+    "A4:F4:C2:0B:42:03",
+    "A4:F4:C2:0B:42:04",
+    "CC:71:90:86:9F:9F",
+    "CC:71:90:86:9F:A0"
 ]
 
 MIN_TIMEOUT = 2
